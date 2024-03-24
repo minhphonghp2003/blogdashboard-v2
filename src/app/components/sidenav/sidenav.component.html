@@ -1,0 +1,25 @@
+<nav (mouseleave)="mouseleave()" (mouseenter)="mouseenter()"
+    class="fixed flex flex-col pl-5 shadow-2xl float-left h-[100vh] justify-between duration-200 w-[4rem] hover:w-[15rem] bg-white">
+    <div class="flex gap-4 items-center mt-4 mr-4">
+        <img src="/assets/logo.png" class="w-[2.8rem]" />
+        <p *ngIf="isHover" class="text-icon font-semibold text-lg">Dashboard</p>
+
+    </div>
+    <div class="flex flex-col  gap-8 ">
+        <div *ngFor="let route of routes; let i=index" class="">
+            <a [routerLink]="route.path" class="text-icon flex gap-1" [routerLinkActive]="activeClass"
+                ariaCurrentWhenActive="page">
+                <mat-icon aria-hidden="false" aria-label="Example home icon" class="" [fontIcon]="route.icon"></mat-icon>
+                <p *ngIf="isHover" class="mr-2">
+                    {{route.name}}
+                </p>
+            </a>
+
+        </div>
+    </div>
+
+    <a class="flex gap-2 items-center text-icon mb-2 cursor-pointer" (click)="handleLogout()">
+        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="logout"></mat-icon>
+        <p *ngIf="isHover">Logout</p>
+    </a>
+</nav>
