@@ -23,10 +23,10 @@ export class LoginComponent {
   loginLog: LoginLog = {}
   constructor(private loginLogService: LogService, private deviceDetector: DeviceDetectorService, private messageService: MessageService, private storageService: StorageService, private authService: AuthService, private router: Router) { }
   async handleLogin() {
+    this.messageService.add({ key: "k1", severity: 'info', summary: 'Hold on', detail: 'Vui long cho mot lat' });
     this.authService.login(this.loginForm).subscribe(result => {
       let token = result.token
       if (token) {
-        this.messageService.add({ key: "k1", severity: 'info', summary: 'Hold on', detail: 'Vui long cho mot lat', life: 10000 });
         this.storageService.addCookie({ name: "Auth", value: token })
         this.loginLog = { ...this.deviceDetector.getDeviceInfo(), browserName: this.deviceDetector.getDeviceInfo().browser, device: this.deviceDetector.deviceType }
         if (navigator.geolocation) {
