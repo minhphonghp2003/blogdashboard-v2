@@ -3,9 +3,13 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service'
 import { LoginDetail } from '../model/Login';
 import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { LoginToken } from '../model/LoginToken';
-import { Observable, lastValueFrom, take } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Token } from '../model/Token';
+import { EmailForm } from '../model/EmailForm';
+import { PasswordReset } from '../model/PasswordReset';
+
+const BASE_URL = environment.apiUrl
+
 @Injectable({
   providedIn: 'root'
 })
@@ -24,7 +28,19 @@ export class AuthService {
     });
   }
   login(loginForm: LoginDetail) {
-    let loginUrl = environment.apiUrl + "/user/login"
+    let loginUrl = BASE_URL + "/user/login"
     return this.httpClient.post<LoginDetail>(loginUrl, loginForm)
+  }
+  getRecvPassToken(email: string) {
+    let url = BASE_URL + "/user/recvToken"
+    return this.httpClient.post(url, email)
+  }
+  sendResetLinkEmail(emailForm: EmailForm) {
+    let url = "https://eow8ijpnrwxsdra.m.pipedream.net"
+    return this.httpClient.post(url, emailForm)
+  }
+  updatePassword(passwordReset: PasswordReset) {
+    let url = BASE_URL + "/user/password"
+    return this.httpClient.put<PasswordReset>(url, passwordReset)
   }
 }

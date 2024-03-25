@@ -23,6 +23,8 @@ export class LoginComponent {
   loginLog: LoginLog = {}
   constructor(private loginLogService: LogService, private deviceDetector: DeviceDetectorService, private messageService: MessageService, private storageService: StorageService, private authService: AuthService, private router: Router) { }
   async handleLogin() {
+    console.log(this.loginLogService);
+
     this.messageService.add({ key: "k1", severity: 'info', summary: 'Hold on', detail: 'Vui long cho mot lat' });
     this.authService.login(this.loginForm).subscribe(result => {
       let token = result.token
@@ -30,7 +32,7 @@ export class LoginComponent {
         this.storageService.addCookie({ name: "Auth", value: token })
         this.loginLog = { ...this.deviceDetector.getDeviceInfo(), browserName: this.deviceDetector.getDeviceInfo().browser, device: this.deviceDetector.deviceType }
         if (navigator.geolocation) {
-          let position = navigator.geolocation.getCurrentPosition((position) => {
+          navigator.geolocation.getCurrentPosition((position) => {
             const longitude = position.coords.longitude;
             const latitude = position.coords.latitude;
             this.loginLogService.getGeoLocation(latitude, longitude).subscribe(data => {
@@ -45,7 +47,6 @@ export class LoginComponent {
         }
       }
     }, error => {
-      console.log(error);
       if (error.status === 500 || error.status === 0) {
 
         this.messageService.add({ key: "k1", severity: 'error', summary: 'Login that bai', detail: 'Server die roi 😢😢' });
