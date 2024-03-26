@@ -1,0 +1,17 @@
+<div class="grid grid-cols-5 gap-6">
+    <div class="col-span-2">
+        <app-box>
+            <app-user-detail [userDetail]="userDetail"></app-user-detail>
+        </app-box>
+    </div>
+    <div class="col-span-3 ">
+        <app-box>
+
+            <app-password-update [email]="userDetail.email"></app-password-update>
+        </app-box>
+        <app-box>
+            <app-socials [userId]="userDetail.userInformation.id"
+                [socials]="userDetail.userInformation.socials"></app-socials>
+        </app-box>
+    </div>
+</div>

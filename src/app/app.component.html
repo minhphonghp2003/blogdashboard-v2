@@ -1,7 +1,7 @@
 <div #main class="">
   <p-toast key="k1"></p-toast>
   <app-sidenav [user]="userDetail" *ngIf="isLoggedIn"></app-sidenav>
-  <div class="w-[80vw] m-auto h-full">
+  <div class="w-[80vw] m-auto h-full pt-8">
     <router-outlet></router-outlet>
   </div>
   <div (click)="handleScrollUp()" class="cursor-pointer fixed bottom-5 right-5 text-icon hover:text-black">

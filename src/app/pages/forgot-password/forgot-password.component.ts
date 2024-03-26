@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { BoxComponent } from '../box/box.component';
+import { BoxComponent } from '../../components/box/box.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { EmailForm } from '../../model/EmailForm';

@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { PostComponent } from './components/post/post.component';
-import { WorkComponent } from './components/work/work.component';
-import { ProfileComponent } from './components/profile/profile.component';
-import { PostInformationComponent } from './components/post-information/post-information.component';
+import { HomeComponent } from './pages/home/home.component';
+import { PostComponent } from './pages/post/post.component';
+import { WorkComponent } from './pages/work/work.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { PostInformationComponent } from './pages/post-information/post-information.component';
 import { authGuard } from './service/auth-guard.guard';
-import { LoginComponent } from './components/login/login.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
-import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { LoginComponent } from './pages/login/login.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 
 export const routes: Routes = [
     { path: "home", component: HomeComponent, canActivate: [authGuard] },

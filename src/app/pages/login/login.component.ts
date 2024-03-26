@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BoxComponent } from '../box/box.component';
+import { BoxComponent } from '../../components/box/box.component';
 import { AuthService } from '../../service/auth.service';
 import { LoginDetail } from '../../model/Login';
 import { FormsModule } from '@angular/forms';

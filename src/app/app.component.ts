@@ -20,7 +20,6 @@ import { MatIconModule } from '@angular/material/icon';
 export class AppComponent implements OnInit {
   constructor(private router: Router, private authService: AuthService, private userService: UserService, private storageService: StorageService) { }
   userDetail?: UserDetail
-  @ViewChild('main') private mainContainer?: ElementRef;
   isLoggedIn = this.authService.isLoggedIn()
   ngOnInit(): void {
     if (this.isLoggedIn) {
@@ -34,10 +33,7 @@ export class AppComponent implements OnInit {
   }
   handleScrollUp() {
     window.scrollTo({ top: 0, behavior: "smooth" })
-    // this.mainContainer?.nativeElement.scroll({
-    //   top: 0,
-    //   behavior: 'smooth'
-    // })
+   
   }
 
 }
