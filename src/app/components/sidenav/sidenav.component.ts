@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { Route } from '../../model/Route';
@@ -24,11 +24,7 @@ export class SidenavComponent implements OnChanges {
   user?: UserDetail
   userAvatar = this.user?.userInformation.avatar || "nothning"
   routes: Route[] = [
-    { name: "Trang chu", icon: "home", path: "home" },
-    { name: "Viet bai", icon: "draw", path: "post" },
-    { name: "Thong tin bai viet", icon: "description", path: "postInfo" },
-    // { name: "Profile", icon: "account_circle", path: "profile" },
-    { name: "Bai viet", icon: "work", path: "work" },
+    
   ]
   adminRoutes: Route[] = [
 
@@ -38,9 +34,17 @@ export class SidenavComponent implements OnChanges {
     { name: "Thong ke", icon: "signal_cellular_alt", path: "statistic" },
   ]
   activeClass = ["!text-active", "after:w-[4px]", "after:bg-active", "after:rounded", "after:ml-3"]
+
   ngOnChanges(changes: SimpleChanges): void {
     let user = changes['user']
     this.userAvatar = user['currentValue'].userInformation.avatar
+    this.routes= [
+    { name: "Trang chu", icon: "home", path: "home" },
+    { name: "Viet bai", icon: "draw", path: "post" },
+    { name: "Thong tin bai viet", icon: "description", path: "postInfo" },
+    // { name: "Profile", icon: "account_circle", path: "profile" },
+    { name: "Bai viet", icon: "work", path: ['work', { userId: this.user?.userInformation.id }] },
+  ]
   }
   checkEndScroll(id: string) {
 

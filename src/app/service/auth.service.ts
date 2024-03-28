@@ -7,6 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Token } from '../model/Token';
 import { EmailForm } from '../model/EmailForm';
 import { PasswordReset } from '../model/PasswordReset';
+import { UserService } from './user.service';
 
 const BASE_URL = environment.apiUrl
 
@@ -14,7 +15,7 @@ const BASE_URL = environment.apiUrl
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private cookieService: CookieService, private router: Router, private httpClient: HttpClient) {
+  constructor(private userService: UserService, private cookieService: CookieService, private router: Router, private httpClient: HttpClient) {
   }
   isLoggedIn() {
     let auth = this.cookieService.get("Auth")

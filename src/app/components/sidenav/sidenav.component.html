@@ -22,7 +22,7 @@
         </div>
         <hr class=" relative -left-5 ">
         <div *ngFor="let route of adminRoutes; let i=index" class="">
-            <a [routerLink]="route.path" class="text-icon flex gap-1" [routerLinkActive]="activeClass"
+            <a [routerLink]="route.path" class="text-icon flex gap-1"  [routerLinkActive]="activeClass"
                 ariaCurrentWhenActive="page">
                 <mat-icon aria-hidden="false" aria-label="Example home icon" class=""
                     [fontIcon]="route.icon"></mat-icon>

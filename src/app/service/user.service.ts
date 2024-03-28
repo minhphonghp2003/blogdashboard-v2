@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../environments/environment';
 import { UserDetail } from '../model/UserDetail';
+import { StorageService } from './storage.service';
 
 const BASE_URL = environment.apiUrl
 
@@ -11,7 +12,7 @@ const BASE_URL = environment.apiUrl
 })
 export class UserService {
 
-  constructor(private cookieService: CookieService, private httpClient: HttpClient) { }
+  constructor(private storageService: StorageService, private httpClient: HttpClient) { }
   getUserDetail() {
     let url = BASE_URL + "/user/userDetail"
     return this.httpClient.get<UserDetail>(url)
@@ -32,5 +33,9 @@ export class UserService {
   addUserSocial(name: string, link: string, userId: string) {
     let url = BASE_URL + "/user/userSocial"
     return this.httpClient.post(url, { userId, link, name })
+  }
+  getUserIdFromToken() {
+    let token = this.storageService.getCookie("Auth")
+    return atob(token.split('.')[1])
   }
 }

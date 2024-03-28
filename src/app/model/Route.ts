@@ -1,5 +1,6 @@
 export interface Route {
     icon:string,
     name:string,
-    path:string,
+    path:any,
+    queryParams?:string
 }

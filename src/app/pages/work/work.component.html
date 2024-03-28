@@ -1,1 +1,20 @@
-<p>work works!</p>
+<div class="flex gap-4 flex-wrap justify-between mb-4" infiniteScroll [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+    <div *ngFor="let post of allPosts" class="w-[30%] ">
+        <img [ngSrc]="post.imageLink" width="400" height="200" alt="image" priority class="w-full rounded-lg mb-4">
+        <div class="flex text-icon">
+
+            <p class="font-semibold text-black"> <span class="text-active">{{post.topic.name}}</span>
+                {{post.readingList?post.readingList.name:""}}
+            </p>
+            <p class="ml-2 before:content-['-'] before:mr-2">{{post.updatedAt | date}}</p>
+        </div>
+        <p class="font-bold text-lg mt-2">{{post.title}}</p>
+        <p class="mt-2 text-icon text-sm">{{post.foreword | slice:0:150}}...</p>
+        <a [routerLink]="['/work',post.id]">
+            <p class="text-icon mt-2">Chi tiet</p>
+        </a>
+    </div>
+
+
+</div>
