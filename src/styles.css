@@ -41,3 +41,9 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.ce-block__content, 
+.ce-toolbar__content {
+ max-width: 100%;  /* example value, adjust for your own use case */
+ font-size:x-large ;
+}

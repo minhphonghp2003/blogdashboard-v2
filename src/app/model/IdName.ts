@@ -1,4 +1,4 @@
 export interface IdName {
-    id: number | string,
+    id?: string | number,
     name: string
 }

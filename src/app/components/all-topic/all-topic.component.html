@@ -1,0 +1,47 @@
+<p-table [value]="allTopics" [tableStyle]="{'min-width': '60rem'}">
+    <ng-template pTemplate="caption">
+        <div class="flex  items-center  justify-between">
+            <p class="font-bold text-lg text-active">
+                Topics
+            </p>
+            <div class="flex items-center gap-2">
+
+                <span class="p-float-label">
+                    <input [(ngModel)]="addedTopicName" id="float-input" type="text" pInputText>
+                    <label for="float-input">Them topic</label>
+                </span>
+                <span *ngIf="addedTopicName" class="p-float-label">
+                    <input [(ngModel)]="addedTopicDesc" id="float-input" type="text" pInputText>
+                    <label for="float-input">Mo ta</label>
+                </span>
+                <p-fileUpload mode="basic" (onSelect)="onUpload($event)" accept="image/*"
+                    chooseLabel="Icon"></p-fileUpload>
+
+                <p-button icon="pi pi-check" (click)="onSubmit()"></p-button>
+            </div>
+
+        </div>
+
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Name</th>
+            <th>Icon</th>
+            <th>Description</th>
+            <th>Status</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-topic>
+        <tr>
+            <td>{{topic.name}}</td>
+            <td><img [src]="topic.icon" [alt]="topic.name" width="30" class="shadow-4" /></td>
+            <td class="">{{topic.description}}</td>
+            <td><p-tag [value]="topic.status" [severity]="topic.status=='ACTIVE'?'success':'danger'"></p-tag></td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">
+            Tong cong co {{allTopics ? allTopics.length : 0 }} topics
+        </div>
+    </ng-template>
+</p-table>

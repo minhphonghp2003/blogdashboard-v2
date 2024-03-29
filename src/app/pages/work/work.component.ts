@@ -8,7 +8,7 @@ import { StorageService } from '../../service/storage.service';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MessageService } from 'primeng/api';
 
-let LIMIT = 4
+let LIMIT = 9
 @Component({
   selector: 'app-work',
   standalone: true,

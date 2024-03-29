@@ -1,1 +1,35 @@
-<p>post works!</p>
+<div class="w-[100%] ">
+    <div class="p-float-label w-full p-input-filled mb-6">
+        <input id="float-input" class="p-inputtext-lg w-full text-2xl h-[3rem]" [(ngModel)]="title" type="text"
+            pInputText>
+        <label class="" for="float-input">Tieu de</label>
+    </div>
+    <span class="p-float-label w-full p-input-filled mb-6">
+        <input id="float-input" class="p-inputtext-lg w-full text-2xl h-[3rem]" [(ngModel)]="foreword" type="text"
+            pInputText>
+        <label for="float-input">Loi noi dau</label>
+    </span>
+    <p-fileUpload [showUploadButton]="false" [showCancelButton]="false" (onRemove)="onRemoveImage($event)"
+        chooseLabel="Image" (onSelect)="uploadImage($event)" accept=" image/*">
+        <ng-template pTemplate="content">
+            <ul *ngIf="uploadedImage">
+                {{uploadedImage.name}} - {{uploadedImage.size}} bytes
+            </ul>
+        </ng-template>
+    </p-fileUpload>
+
+    <app-box>
+        <div class="flex justify-center items-center gap-32 ">
+
+            <p-dropdown placeholder="Reading list" [showClear]="true" [options]="readingLists" [(ngModel)]="selectedReadingList"
+                optionLabel="name"></p-dropdown>
+            <p-dropdown placeholder="Topic" [options]="topics" [(ngModel)]="selectedTopic"
+                optionLabel="name"></p-dropdown>
+            <p-multiSelect [options]="tags" defaultLabel="Tags" [(ngModel)]="selectedTagIds" optionLabel="name"
+                optionValue="id"></p-multiSelect>
+            <p-splitButton [disabled]="isDisabled" class="grow text-end" styleClass="p-button-raised p-button-info p-button-text p-3"
+                label="Post" icon="pi pi-check-circle" (onClick)="submit()" [model]="buttonItems"></p-splitButton>
+        </div>
+    </app-box>
+    <div class="shadow-2xl p-14 rounded-lg" id="editor-js"></div>
+</div>

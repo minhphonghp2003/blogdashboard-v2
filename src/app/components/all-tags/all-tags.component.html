@@ -1,0 +1,17 @@
+<div class="flex  items-center  justify-between">
+    <p class="font-bold text-lg text-active">
+        Tags
+    </p>
+    <div class="flex items-center gap-2">
+
+        <span class="p-float-label">
+            <input [(ngModel)]="addedTagName" id="float-input" type="text" pInputText>
+            <label for="float-input">Them tag</label>
+        </span>
+        <p-button icon="pi pi-check" (click)="onSubmit()"></p-button>
+    </div>
+
+</div>
+<div class="mt-8 flex gap-2 flex-wrap ">
+    <p-tag *ngFor="let tag of allTags" [severity]="tag.status=='ACTIVE'?'info':'danger'" [value]="tag.name"></p-tag>
+</div>

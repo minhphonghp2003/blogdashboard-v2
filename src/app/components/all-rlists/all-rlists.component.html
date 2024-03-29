@@ -1,0 +1,47 @@
+<p-table [value]="allRLists" [tableStyle]="{'min-width': '60rem'}">
+    <ng-template pTemplate="caption">
+        <div class="flex  items-center  justify-between">
+            <p class="font-bold text-lg text-active">
+                ReadingLists
+            </p>
+            <div class="flex items-center gap-2">
+
+                <span class="p-float-label">
+                    <input [(ngModel)]="addedReadingListName" id="float-input" type="text" pInputText>
+                    <label for="float-input">Them reading list</label>
+                </span>
+                <span *ngIf="addedReadingListName" class="p-float-label">
+                    <input [(ngModel)]="addedReadingListDesc" id="float-input" type="text" pInputText>
+                    <label for="float-input">Mo ta</label>
+                </span>
+                <p-fileUpload mode="basic" (onSelect)="onUpload($event)" accept="image/*"
+                    chooseLabel="Image"></p-fileUpload>
+
+                <p-button icon="pi pi-check" (click)="onSubmit()"></p-button>
+            </div>
+
+        </div>
+
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Description</th>
+            <th>Status</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rlist>
+        <tr>
+            <td>{{rlist.name}}</td>
+            <td><img [src]="rlist.image" [alt]="rlist.name" width="50" class="shadow-4" /></td>
+            <td class="">{{rlist.description}}</td>
+            <td><p-tag [value]="rlist.status" [severity]="rlist.status=='ACTIVE'?'success':'danger'"></p-tag></td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">
+            Tong cong co {{allRLists ? allRLists.length : 0 }} reading lists
+        </div>
+    </ng-template>
+</p-table>
