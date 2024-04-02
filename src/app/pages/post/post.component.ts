@@ -1,53 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { PostService } from '../../service/post.service';
 import { Tag } from '../../model/Tag';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
-import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ReadingList } from '../../model/ReadingList';
 import { Topic } from '../../model/Topic';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { FileUploadModule } from 'primeng/fileupload';
 import EditorJS from "@editorjs/editorjs";
-//@ts-ignore
-import Header from '@editorjs/header';
-//@ts-ignore
-import List from '@editorjs/list';
-//@ts-ignore
-import Marker from '@editorjs/marker';
-//@ts-ignore
-import InlineCode from '@editorjs/inline-code';
-//@ts-ignore
-import Underline from '@editorjs/underline';
-//@ts-ignore
-import ChangeCase from 'editorjs-change-case';
-//@ts-ignore
-import Strikethrough from '@sotaproject/strikethrough';
-//@ts-ignore
-import Delimiter from '@editorjs/delimiter';
-//@ts-ignore
-import Quote from '@editorjs/quote';
-//@ts-ignore
-import Header from '@editorjs/header';
-//@ts-ignore
-import Embed from '@editorjs/embed';
-//@ts-ignore
-import InlineImage from 'editorjs-inline-image';
-//@ts-ignore
-import editorjsCodeflask from '@calumk/editorjs-codeflask';
-//@ts-ignore
-import Superscript from 'editorjs2-superscript'
-//@ts-ignore
-import Subscript from 'editorjs-subscript'
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { BoxComponent } from '../../components/box/box.component';
 import { StorageService } from '../../service/storage.service';
 import { NewPost } from '../../model/NewPost';
 import { MessageService } from 'primeng/api';
-import { Router } from '@angular/router';
-
+import { ActivatedRoute, Router } from '@angular/router';
+//@ts-ignore
+import { Tools } from "./tools"
 @Component({
   selector: 'app-post',
   standalone: true,
@@ -56,103 +26,65 @@ import { Router } from '@angular/router';
   styleUrl: './post.component.css'
 })
 export class PostComponent implements OnInit {
-  constructor(private postService: PostService, private storageService: StorageService, private messageService: MessageService, private route: Router) {
+  constructor(private postService: PostService, private storageService: StorageService, private messageService: MessageService, private route: Router, private activeRoute: ActivatedRoute) {
   }
-  selectedTagIds!: number[]
-  tags!: Tag[]
+  selectedTagIds?: number[]
   selectedReadingList?: ReadingList
-  readingLists!: ReadingList[]
-  selectedTopic!: Topic
-  topics!: Topic[]
+  selectedTopic?: Topic
   uploadedImage?: any
+  title?: string
+  foreword?: string
+  postId?: number
+  tags!: Tag[]
+  readingLists!: ReadingList[]
+  topics?: Topic[]
   editor: any
   buttonItems?: any
-  title!: string
-  foreword!: string
   isDisabled = false
-  ngOnInit(): void {
+  postPath?: string
+  uploadedFile?: any
+  ngOnInit() {
+    this.activeRoute.parent?.params.subscribe(result => {
+      this.postId = (result as any).id
+      if (!this.postId) {
+        this.editor = new EditorJS({
+          placeholder: 'Let`s write an awesome story!',
+          holderId: 'editor-js',
+          tools: Tools
+        });
+        return
+      }
+      this.postService.getPostDetail(this.postId).subscribe(async result => {
+        this.selectedTagIds = []
+        result.tags.map(t => { this.selectedTagIds!.push(t.id as number) })
+        this.selectedReadingList = result.readingList
+        this.selectedTopic = result.topic
+        this.title = result.title
+        this.foreword = result.foreword
+        this.postPath = result.postLink
+        let blogContent = await this.storageService.downloadPost(result.postLink)
+
+        this.editor = new EditorJS({
+          placeholder: 'Let`s write an awesome story!',
+          holderId: 'editor-js',
+          data: JSON.parse(blogContent),
+          tools: Tools
+        });
+      })
+    })
+
     this.buttonItems = [
       {
         label: 'Save', icon: 'pi pi-save', command: () => {
           this.save();
         }
-      }
-    ]
-    this.editor = new EditorJS({
-      placeholder: 'Let`s write an awesome story!',
-      holderId: 'editor-js',
-      tools: {
-        subscript: {
-          class: Subscript
-        },
-
-        superscript: {
-          class: Superscript
-        },
-
-        code: editorjsCodeflask,
-
-        image: {
-          class: InlineImage,
-          inlineToolbar: true,
-          config: {
-            embed: {
-              display: true,
-            },
-            unsplash: {
-              appName: 'blog',
-              apiUrl: 'https://api.unsplash.com/photos/?client_id=E8AD2LDvGauNI1CBsWBRxfDA3hLV-E6T4c3KB-n0O_M',
-              maxResults: 30,
-            }
-          }
-        },
-        embed: {
-          class: Embed,
-          config: {
-            services: {
-              youtube: true,
-              coub: true,
-              facebook: true,
-              instagram: true,
-              twitter: true,
-              imgur: true,
-              codepen: true,
-              pinterest: true
-            }
-          }
-        },
-        header: {
-          class: Header,
-          config: {
-            placeholder: 'Enter a header',
-            levels: [1, 2, 3],
-            defaultLevel: 1
-          }
-        },
-        delimiter: Delimiter,
-        quote: Quote,
-
-        strikethrough: Strikethrough,
-        changeCase: {
-          class: ChangeCase,
-          config: {
-            showLocaleOption: true, // enable locale case options
-            locale: 'tr' // or ['tr', 'TR', 'tr-TR']
-          }
-        },
-        underline: Underline,
-        inlineCode: {
-          class: InlineCode,
-        },
-        list: {
-          class: List,
-          inlineToolbar: ['link', 'bold']
-        },
-        marker: {
-          class: Marker,
+      },
+      {
+        label: 'Upload', icon: 'pi pi-upload', command: () => {
+          this.upload();
         }
       }
-    });
+    ]
 
     this.postService.getAllTags().subscribe(result => {
       this.tags = [...result.filter(r => { return r.status === "ACTIVE" })]
@@ -178,11 +110,11 @@ export class PostComponent implements OnInit {
     this.storageService.saveFile({ content: JSON.stringify(content), contentType: 'text/plain', fileName: "draft.txt" })
 
   }
-  async submit() {
+  async post() {
     this.messageService.add({ key: "k1", severity: 'info', summary: 'Hold on', detail: 'Cho ti nao' });
-    if (!this.selectedTagIds || this.selectedTagIds.length == 0 || !this.selectedTopic) {
+    if (!this.selectedTagIds || this.selectedTagIds.length == 0 || !this.selectedTopic || !this.title || !this.foreword) {
 
-      this.messageService.add({ key: "k1", severity: 'error', summary: 'Thieu topic/tags', detail: 'Topic va tags la bat buoc' });
+      this.messageService.add({ key: "k1", severity: 'error', summary: 'Error', detail: 'Vui long nhap het cac thong tin' });
 
       return
     }
@@ -218,6 +150,50 @@ export class PostComponent implements OnInit {
       this.isDisabled = false
     })
 
+
+  }
+  async update() {
+
+    this.messageService.add({ key: "k1", severity: 'info', summary: 'Hold on', detail: 'Cho ti nao' });
+    this.isDisabled = true
+    let content = await this.editor.save()
+    let image = this.uploadedImage
+    let updatedPost: NewPost = {
+      foreword: this.foreword!,
+      tagIds: this.selectedTagIds!,
+      title: this.title!,
+      topicId: this.selectedTopic?.id!,
+      id: this.postId,
+      readingListId: this.selectedReadingList?.id
+    }
+
+    if (image) {
+      await this.storageService.uploadImage(this.postPath!, image)
+    }
+    await this.storageService.uploadPost(this.postPath!, JSON.stringify(content))
+
+    this.postService.updatePost(updatedPost).subscribe(result => {
+      this.messageService.add({ key: "k1", severity: 'success', summary: 'Hoan tat', detail: 'Chuc mung ban da cap nhat thanh cong' });
+      this.route.navigate(["/home"])
+      this.isDisabled = false
+    }, error => {
+      this.isDisabled = false
+    })
+  }
+  upload() {
+    let element: HTMLElement = document.getElementById('uploadInput') as HTMLElement;
+    element.click();
+  }
+  async uploaded(event: any) {
+    let file = event.target.files[0]
+    let content = JSON.parse(await file.text())
+    this.editor.destroy()
+    this.editor = new EditorJS({
+      placeholder: 'Let`s write an awesome story!',
+      holderId: 'editor-js',
+      data: content,
+      tools: Tools
+    });
 
   }
 }

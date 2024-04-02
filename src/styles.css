@@ -6,6 +6,39 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    h1 {
+        @apply text-3xl;
+        @apply font-extrabold
+    }
+
+    h2 {
+        @apply text-2xl;
+        @apply font-bold
+    }
+    h3{
+
+        @apply text-xl;
+        @apply font-semibold
+    }
+}
+
+@layer utilities {
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+    }
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 3px;
@@ -42,8 +75,9 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.ce-block__content, 
+.ce-block__content,
 .ce-toolbar__content {
- max-width: 100%;  /* example value, adjust for your own use case */
- font-size:x-large ;
+    max-width: 100%;
+    /* example value, adjust for your own use case */
+    font-size: large;
 }

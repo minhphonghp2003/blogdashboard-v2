@@ -9,6 +9,7 @@ import { Topic } from '../model/Topic';
 import { ReadingList } from '../model/ReadingList';
 import { Tag } from '../model/Tag';
 import { NewPost } from '../model/NewPost';
+import { Comment } from '../model/Comment';
 let BASE_URL = environment.apiUrl
 @Injectable({
   providedIn: 'root'
@@ -57,5 +58,27 @@ export class PostService {
   createPost(newPost: NewPost) {
     let url = BASE_URL + "/post/"
     return this.httpClient.post<NewPost>(url, newPost)
+  }
+  deletePost(postId: number) {
+
+    let url = BASE_URL + "/post/" + postId
+    return this.httpClient.delete(url)
+  }
+  updatePost(updatedPost: NewPost) {
+    let url = BASE_URL + "/post/"
+    return this.httpClient.put(url, updatedPost)
+  }
+  getPostComment(postId: number) {
+
+    let url = BASE_URL + "/comment/post?postId=" + postId
+    return this.httpClient.get<Comment[]>(url)
+  }
+  deleteComment(id: string) {
+    let url = BASE_URL + "/comment/?commentId=" + id
+    return this.httpClient.delete(url)
+  }
+  createComment(comment: Comment) {
+    let url = BASE_URL + "/comment/"
+    return this.httpClient.post<Comment>(url, comment)
   }
 }

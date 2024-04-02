@@ -10,6 +10,8 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { WorkDetailComponent } from './pages/work-detail/work-detail.component';
 import { workDetailGuard } from './service/work-detail.guard';
+import { StatisticComponent } from './pages/statistic/statistic.component';
+import { CommentComponent } from './pages/comment/comment.component';
 
 export const routes: Routes = [
     { path: "home", component: HomeComponent, canActivate: [authGuard] },
@@ -17,7 +19,23 @@ export const routes: Routes = [
     { path: "postInfo", component: PostInformationComponent, canActivate: [authGuard] },
     { path: "profile", component: ProfileComponent, canActivate: [authGuard] },
     { path: "work", component: WorkComponent, canActivate: [authGuard] },
-    { path: "work/:id", component: WorkDetailComponent, canActivate: [workDetailGuard] },
+    {
+        path: "work/:id", children: [
+            { path: '', redirectTo: 'statistic', pathMatch: 'full' },
+            {
+                path: "statistic",
+                component: StatisticComponent
+            },
+            {
+                path: "comment",
+                component: CommentComponent
+            },
+            {
+                path: "edit",
+                component: PostComponent
+            }
+        ], component: WorkDetailComponent, canActivate: [workDetailGuard]
+    },
     { path: "login", component: LoginComponent },
     { path: "forgot", component: ForgotPasswordComponent },
     { path: '', redirectTo: '/login', pathMatch: 'full' },

@@ -1,0 +1,11 @@
+<div class="card">
+    <h5 class="text-lg font-semibold mb-4">Nhat ky hoat dong</h5>
+    <p-timeline [value]="events1">
+        <ng-template pTemplate="content" let-event>
+            <small class="p-text-secondary">{{event.createdAt}}</small>
+        </ng-template>
+        <ng-template pTemplate="opposite" let-event>
+            {{event.action}}
+        </ng-template>
+    </p-timeline>
+</div>

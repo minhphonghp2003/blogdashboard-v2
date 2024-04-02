@@ -1,18 +1,19 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PostService } from '../../service/post.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { PostCard } from '../../model/PostCard';
 import { AllPostRequest } from '../../model/AllPostReq';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { StorageService } from '../../service/storage.service';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MessageService } from 'primeng/api';
+import { BadgeModule } from 'primeng/badge';
+import { PostDetail } from '../../model/PostDetail';
 
 let LIMIT = 9
 @Component({
   selector: 'app-work',
   standalone: true,
-  imports: [CommonModule, NgOptimizedImage, RouterLink, InfiniteScrollModule],
+  imports: [CommonModule, NgOptimizedImage, RouterLink, InfiniteScrollModule, BadgeModule],
   templateUrl: './work.component.html',
   styleUrl: './work.component.css'
 })
@@ -22,7 +23,7 @@ export class WorkComponent implements OnInit {
 
   page = 0
   userId!: string | null
-  allPosts!: PostCard[]
+  allPosts!: PostDetail[]
   isEnd = false
 
   ngOnInit(): void {

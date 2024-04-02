@@ -1,7 +1,9 @@
 export interface Comment {
-    id: string,
+    id?: string,
+    postId: number,
     userId: string,
     fullName: string,
     text: string,
-    replies: Comment[]
+    parentCommentId?: string
+    replies?: Comment[]
 }

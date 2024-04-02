@@ -2,6 +2,10 @@
     [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
     <div *ngFor="let post of allPosts" class="w-[30%] ">
         <img [ngSrc]="post.imageLink" width="400" height="200" alt="image" priority class="w-full rounded-lg mb-4">
+        <div class=" relative bottom-7  flex justify-center gap-4">
+            <p-badge severity="success" [value]="'views: ' + post.postStatistic.viewCount"></p-badge>
+            <p-badge severity="warning" [value]="'likes: ' + post.likeReader.length"></p-badge>
+        </div>
         <div class="flex text-icon">
 
             <p class="font-semibold text-black"> <span class="text-active">{{post.topic.name}}</span>

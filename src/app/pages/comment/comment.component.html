@@ -1,0 +1,54 @@
+<p-table #dt [value]="comments" [rows]="7" [paginator]="true" [globalFilterFields]="['name']"
+    [(selection)]="selectedComment" [rowHover]="true" dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+    <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-between">
+            <h5 class="m-0">Comments</h5>
+            <div class="flex gap-4">
+                <button pButton pRipple label="Them" icon="pi pi-plus-circle" class="text-active"
+                    (click)="addComment()"></button>
+                <button pButton pRipple label="Xoa" icon="pi pi-trash" class="text-red-600"
+                    (click)="deleteMultipleComments()"
+                    [disabled]="!selectedComment || !selectedComment.length"></button>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width: 4rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th>Name</th>
+            <th>Text</th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-cmt>
+        <tr>
+            <td>
+                <p-tableCheckbox class="" [value]="cmt"></p-tableCheckbox>
+            </td>
+            <td>{{cmt.fullName}}</td>
+            <td>{{cmt.text}}</td>
+            <td>
+                <button pButton pRipple icon="pi pi-reply" class="p-button-rounded p-button-success mr-2"
+                    (click)="replyClicked(cmt)"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded text-red-600"
+                    (click)="deleteComment(cmt)"></button>
+            </td>
+        </tr>
+    </ng-template>
+
+</p-table>
+
+<p-dialog (onHide)="hideDialog()" [(visible)]="replyDialog" [header]="replyTo?'Reply':'Comment'" [modal]="true"
+    styleClass="p-fluid">
+    <span class="p-float-label">
+        <input id="float-input" class="h-[2rem] mt-2" [(ngModel)]="authorReply" type="text" pInputText>
+        <label for="float-input">Say something...</label>
+    </span>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Xac nhan" icon="pi pi-check" class="p-button-text" (click)="confirm()"></button>
+    </ng-template>
+</p-dialog>

@@ -4,6 +4,7 @@
   "newProjectRoot": "projects",
   "projects": {
     "blogadmin": {
+      
       "projectType": "application",
       "schematics": {},
       "root": "",

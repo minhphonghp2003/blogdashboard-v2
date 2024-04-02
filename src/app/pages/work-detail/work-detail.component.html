@@ -1,1 +1,39 @@
-<p>work-detail works!</p>
+<p-dialog header="Remove post" [(visible)]="displayRemove">
+    Neu ban chan chan xoa bai post nay thi hay nhap vao confirm text duoi day
+    <p class="text-center w-[50%] bg-gray-100 m-auto rounded-lg">
+        {{postDetail.topic.name}}/{{postDetail.id}}
+    </p>
+    <input placeholder="Nhap o day" class="block  h-[2rem] m-auto bg-slate-200 mt-2" type="text" pInputText
+        [(ngModel)]="confirmDeleteText">
+    <p-button styleClass="w-full bg-red-400 h-[2rem] mt-4" (click)="removePost()" label="Xac nhan"></p-button>
+
+</p-dialog>
+<p-dialog header="Post Image" [(visible)]="displayGalleria">
+    <img [src]="postDetail.imageLink" class="h-[70vh]" alt="">
+
+</p-dialog>
+<p-menubar styleClass="fixed w-[80%] z-20" >
+    <ng-template pTemplate="start">
+        <i class="pi pi-apple mr-2"></i>
+        <i>{{postDetail.title | slice: 0 : 80 }}...</i>
+    </ng-template>
+    <ng-template pTemplate="end">
+        <div class="flex gap-2 items-center">
+            <span>{{postDetail.updatedAt| date}}</span>
+            <i class="pi pi-video"></i>
+            <i class="pi pi-wifi"></i>
+            <i class="pi pi-volume-up"></i>
+            <i class="pi pi-search"></i>
+            <i class="pi pi-bars"></i>
+        </div>
+    </ng-template>
+
+</p-menubar>
+<div class="h-[90vh] p-12 overflow-x-hidden no-scrollbar  overflow-scroll bg-[url('/assets/macbg.png')] rounded-xl">
+    <router-outlet></router-outlet>
+</div>
+<p-dock styleClass="fixed" [model]="dockItems" position="bottom">
+    <ng-template pTemplate="item" let-item>
+        <img [src]="item.icon" [alt]="item.label" width="100%">
+    </ng-template>
+</p-dock>

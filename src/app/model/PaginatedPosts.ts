@@ -1,7 +1,7 @@
-import { PostCard } from "./PostCard";
+import { PostDetail } from "./PostDetail";
 
-export interface PaginatedPosts{
-    content:PostCard[],
-    totalElements:number,
-    totalPages:number
+export interface PaginatedPosts {
+    content: PostDetail[],
+    totalElements: number,
+    totalPages: number
 }

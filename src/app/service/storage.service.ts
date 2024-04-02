@@ -30,7 +30,7 @@ export class StorageService {
   addCookie(cookie: Cookie) {
     this.cookieService.set(cookie.name, cookie.value)
   }
-  removeCookie(name: string) {
+  deleteCookie(name: string) {
     this.cookieService.delete(name)
   }
   getCookie(name: string) {
@@ -50,7 +50,7 @@ export class StorageService {
       .storage
       .from('image')
       .upload(path, file, {
-        upsert: false
+        upsert: true
       })
     return data
   }
@@ -60,9 +60,17 @@ export class StorageService {
       .storage
       .from('post')
       .upload(path, file, {
+        upsert: true
       })
     return data
 
+  }
+  async downloadPost(path: string) {
+    const { data, error } = await supabase
+      .storage
+      .from('post')
+      .download(path)
+    return await data!.text()
   }
   saveFile({ content, fileName, contentType }: { content: any, fileName: string, contentType: string }) {
     var a = document.createElement('a');
@@ -71,4 +79,5 @@ export class StorageService {
     a.download = fileName;
     a.click();
   }
+ 
 }
