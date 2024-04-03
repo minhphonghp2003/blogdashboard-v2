@@ -1,14 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-login-log',
   standalone: true,
-  imports: [TableModule],
+  imports: [TableModule,CommonModule],
   templateUrl: './login-log.component.html',
   styleUrl: './login-log.component.css'
 })
 export class LoginLogComponent implements OnInit {
+  
   logs?: any
   ngOnInit(): void {
     this.logs = [

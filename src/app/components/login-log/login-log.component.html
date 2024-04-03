@@ -16,7 +16,7 @@
             <td>{{log.device}}</td>
             <td><img [src]="'assets/' + log.os + '.png' " width="100" class="shadow-4" /></td>
             <td>{{log.browserName}}</td>
-            <td>{{log.createdAt}}</td>
+            <td>{{log.createdAt | date}}</td>
             <td>{{log.location}}</td>
         </tr>
     </ng-template>

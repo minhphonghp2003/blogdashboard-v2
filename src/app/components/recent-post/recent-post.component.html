@@ -1,13 +1,13 @@
 <div class="flex gap-2">
-    <img src="assets/macbg.png" class="w-[20%] rounded-lg" alt="">
+    <img [src]="image" class="w-[20%] rounded-lg" alt="">
     <div class="flex flex-col gap-2">
 
-        <p>title tiel tile tilitei j</p>
+        <p>{{title}}</p>
         <div class="flex text-icon text-sm gap-8">
 
-            <p>123 comment</p>
-            <p> 123 view</p>
-            <a href="">edit</a>
+            <p>{{like}} like</p>
+            <p> {{view}} view</p>
+            <a [href]="'/work/' + id + '/statistic'">Edit</a>
         </div>
     </div>
 

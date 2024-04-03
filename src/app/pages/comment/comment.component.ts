@@ -9,6 +9,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../service/user.service';
+import { MessageService } from 'primeng/api';
 
 
 @Component({
@@ -19,7 +20,7 @@ import { UserService } from '../../service/user.service';
   styleUrl: './comment.component.css'
 })
 export class CommentComponent implements OnInit {
-  constructor(private postService: PostService, private activeRoute: ActivatedRoute, private userService: UserService) {
+  constructor(private messageService: MessageService, private postService: PostService, private activeRoute: ActivatedRoute, private userService: UserService) {
   }
   comments!: Comment[]
   selectedComment?: Comment[]
@@ -29,11 +30,10 @@ export class CommentComponent implements OnInit {
   authorReply?: string
   replyTo?: Comment
   ngOnInit(): void {
+    this.messageService.add({ key: "k1", severity: 'info', summary: 'Hold on', detail: 'Vui long cho mot lat' });
     this.activeRoute.parent?.params.subscribe(result => {
       this.postId = (result as any).id
       this.postService.getPostComment(this.postId).subscribe(result => {
-        console.log(result);
-
         this.comments = [...result]
         this.comments.map(c => {
           console.log(c);

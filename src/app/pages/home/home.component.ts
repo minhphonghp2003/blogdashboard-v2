@@ -5,18 +5,71 @@ import { ChartModule } from 'primeng/chart';
 import { ActivityComponent } from '../../components/activity/activity.component';
 import { LoginLogComponent } from '../../components/login-log/login-log.component';
 import { BoxComponent } from '../../components/box/box.component';
+import { PostService } from '../../service/post.service';
+import { UserService } from '../../service/user.service';
+import { UserDetail } from '../../model/UserDetail';
+import { StorageService } from '../../service/storage.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [WidgetComponent, RecentPostComponent, ChartModule,BoxComponent, ActivityComponent, LoginLogComponent],
+  imports: [WidgetComponent, RecentPostComponent, ChartModule, BoxComponent, ActivityComponent, LoginLogComponent, CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
+  constructor(private postService: PostService, private userService: UserService, private strorageService: StorageService) {
+
+  }
   lineStylesData: any;
   basicOptions: any;
+  recentPosts!: any[]
+  userDetail!: UserDetail
+  totalPost: any = 0
+  totalLike: any = 0
+  totalView: any = 0
+  totalShare: any = 0
+  totalPoint: any = 0
+  private transform(input: number, args?: any): string | number | null {
+    let exp: number;
+    const suffixes = ['K', 'M', 'B', 'T', 'Q', 'E'];
+
+    if (Number.isNaN(input)) {
+      return null;
+    }
+
+    if (Math.abs(input) < 1000) {
+      return input;
+    }
+
+    exp = Math.floor(Math.log(input) / Math.log(1000));
+
+    return (input / Math.pow(1000, exp)).toFixed(args) + suffixes[exp - 1];
+  }
   ngOnInit(): void {
+    this.userService.getUserDetail().subscribe(user => {
+      this.userDetail = user
+      // console.log(user);
+      this.postService.getAllPost({ limit: 9999999, page: 0, sortBy: "updated_at", authorId: user.userInformation.id }).subscribe(result => {
+        result.content.map(p => { p.imageLink = this.strorageService.extractImage(p.imageLink) })
+        this.recentPosts = [...result.content.slice(0, 6)]
+        this.totalPost = result.totalElements
+        result.content.map(p => {
+          this.totalView += p.postStatistic.viewCount
+          this.totalView += p.likeReader.length
+          this.totalShare += p.postStatistic.shareCount
+        })
+        this.totalPoint += this.totalPost + this.totalView + this.totalLike * 2 + this.totalShare * 3 
+        this.totalPoint = this.transform(this.totalPoint)
+        this.totalLike = this.transform(this.totalLike)
+        this.totalView = this.transform(this.totalView)
+        this.totalPost = this.transform(this.totalPost)
+        this.totalShare = this.transform(this.totalShare)
+
+      })
+
+    })
     this.lineStylesData = {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       datasets: [

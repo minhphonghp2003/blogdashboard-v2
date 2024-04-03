@@ -8,13 +8,17 @@
                 <div class="mt-12 shadow-2xl">
                     <app-box>
                         <div>
-                            <p class="text-xl font-semibold">Minh Phong</p>
-                            <p class="text-icon text-sm">Writer/Author</p>
+                            <p
+                                class="text-xl font-semibold bg-gradient-to-r from-indigo-600 via-cyan-500 to-purple-400 inline-block text-transparent bg-clip-text ">
+                                {{userDetail.userInformation.fullName}}</p>
+                            <p class="text-icon text-sm">{{userDetail.roles[0].name}}/{{userDetail.roles[1].name}}</p>
                             <div class="flex gap-5 mt-12">
-                                <p class="text-icon"> <span class="text-lg mr-3 font-semibold text-gray-500">32</span>
+                                <p class="text-icon"> <span
+                                        class="text-lg mr-3 font-semibold text-gray-500">{{totalPost}}</span>
                                     total post</p>
-                                <p class="text-icon"> <span class="text-lg mr-3 font-semibold text-gray-500">12k</span>
-                                    readers</p>
+                                <p class="text-icon"> <span
+                                        class="text-lg mr-3 font-semibold text-gray-500">{{totalPoint}}</span>
+                                    points</p>
                             </div>
                         </div>
                     </app-box>
@@ -22,12 +26,12 @@
                 </div>
             </div>
             <div class="self-end">
-                <app-widget></app-widget>
+                <app-widget title="Total share" [value]="totalShare" image="assets/share.png"></app-widget>
             </div>
         </div>
         <div class="flex self-end gap-8">
-            <app-widget></app-widget>
-            <app-widget></app-widget>
+            <app-widget title="Total like" [value]="totalLike" image="assets/like.png"></app-widget>
+            <app-widget title="Total view" [value]="totalView" image="assets/view.png"></app-widget>
         </div>
 
         <div class="card col-span-2 ">
@@ -42,12 +46,12 @@
                 <p class="text-lg font-semibold mb-4">
                     Recent post
                 </p>
-                <div class="flex flex-col gap-4">
-                    <app-recent-post></app-recent-post>
-                    <app-recent-post></app-recent-post>
-                    <app-recent-post></app-recent-post>
-                    <app-recent-post></app-recent-post>
-                    <app-recent-post></app-recent-post>
+                <div class="flex flex-col gap-4 h-[45vh] overflow-scroll">
+                    <span *ngFor="let post of recentPosts">
+                        <app-recent-post [title]="post.title" [image]="post.imageLink"
+                            [view]="post.postStatistic.viewCount" [like]="post.likeReader.length"
+                            [id]="post.id"></app-recent-post>
+                    </span>
                 </div>
             </app-box>
         </div>

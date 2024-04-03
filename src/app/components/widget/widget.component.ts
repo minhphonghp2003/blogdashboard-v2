@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BoxComponent } from '../box/box.component';
 
 @Component({
@@ -8,6 +8,17 @@ import { BoxComponent } from '../box/box.component';
   templateUrl: './widget.component.html',
   styleUrl: './widget.component.css'
 })
-export class WidgetComponent {
+export class WidgetComponent implements OnInit {
+  @Input()
+  image!: string
+  @Input()
+  title!: string
+  @Input()
+  value!: string | number
+  color?: string
+  ngOnInit(): void {
+    let ranColor = ["red", "green", "blue", "purple"]
+    this.color = ranColor[Math.floor(Math.random() * ranColor.length)]
+  }
 
 }

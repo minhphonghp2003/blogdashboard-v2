@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { LoginLog } from '../model/LoginLog';
 import { MessageService } from 'primeng/api';
 import { environment } from '../../environments/environment';
+import { ActivityLog } from '../model/ActivityLog';
 
 interface GeoLocation {
 }
@@ -21,5 +22,9 @@ export class LogService {
   updateLoginLog(loginLog: LoginLog) {
     let logUrl = environment.apiUrl + "/log/"
     return this.httpClient.post<LoginLog>(logUrl, loginLog)
+  }
+  getActivities(id: string) {
+    let logUrl = environment.apiUrl + "/log/activity?userId=" + id
+    return this.httpClient.get<ActivityLog[]>(logUrl)
   }
 }
