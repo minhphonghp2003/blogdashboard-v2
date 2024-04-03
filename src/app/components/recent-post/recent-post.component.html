@@ -2,7 +2,7 @@
     <img [src]="image" class="w-[20%] rounded-lg" alt="">
     <div class="flex flex-col gap-2">
 
-        <p>{{title}}</p>
+        <p>{{title | slice:0:50}}...</p>
         <div class="flex text-icon text-sm gap-8">
 
             <p>{{like}} like</p>

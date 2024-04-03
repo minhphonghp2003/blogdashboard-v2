@@ -27,4 +27,9 @@ export class LogService {
     let logUrl = environment.apiUrl + "/log/activity?userId=" + id
     return this.httpClient.get<ActivityLog[]>(logUrl)
   }
+  getLoginLog() {
+
+    let logUrl = environment.apiUrl + "/log/"
+    return this.httpClient.get<LoginLog[]>(logUrl)
+  }
 }
