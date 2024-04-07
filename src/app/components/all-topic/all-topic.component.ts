@@ -10,11 +10,13 @@ import { FormsModule } from '@angular/forms';
 import { StorageService } from '../../service/storage.service';
 import { PostService } from '../../service/post.service';
 import { TagModule } from 'primeng/tag';
+import {SplitButtonModule} from 'primeng/splitbutton';
+
 
 @Component({
   selector: 'app-all-topic',
   standalone: true,
-  imports: [CommonModule, TableModule, InputTextModule, ButtonModule, FileUploadModule, FormsModule, TagModule],
+  imports: [CommonModule, TableModule,SplitButtonModule, InputTextModule, ButtonModule, FileUploadModule, FormsModule, TagModule],
   templateUrl: './all-topic.component.html',
   styleUrl: './all-topic.component.css'
 })
@@ -30,6 +32,9 @@ export class AllTopicComponent {
   addedTopicDesc?: string
   onUpload(event: any) {
     this.addedTopicIcon = event.currentFiles[0]
+  }
+  async onAccept(){
+
   }
   async onSubmit() {
     if (!this.addedTopicIcon) {

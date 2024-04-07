@@ -29,6 +29,7 @@
             <th>Icon</th>
             <th>Description</th>
             <th>Status</th>
+            <th></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-topic>
@@ -37,6 +38,9 @@
             <td><img [src]="topic.icon" [alt]="topic.name" width="30" class="shadow-4" /></td>
             <td class="">{{topic.description}}</td>
             <td><p-tag [value]="topic.status" [severity]="topic.status=='ACTIVE'?'success':'danger'"></p-tag></td>
+            <td>
+                <p-splitButton styleClass="bg-green-300 p-2" label="Accept" icon="pi pi-check"></p-splitButton>
+            </td>
         </tr>
     </ng-template>
     <ng-template pTemplate="summary">
