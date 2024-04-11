@@ -27,13 +27,14 @@ export class AppComponent implements OnInit {
         userDetail.userInformation.avatar = this.storageService.extractImage(userDetail.userInformation.avatar || "")
         this.userDetail = userDetail
       }, error => {
+        // console.log(error.error);
         this.authService.logout()
       })
     }
   }
   handleScrollUp() {
     window.scrollTo({ top: 0, behavior: "smooth" })
-   
+
   }
 
 }

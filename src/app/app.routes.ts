@@ -12,6 +12,8 @@ import { WorkDetailComponent } from './pages/work-detail/work-detail.component';
 import { workDetailGuard } from './service/work-detail.guard';
 import { StatisticComponent } from './pages/statistic/statistic.component';
 import { CommentComponent } from './pages/comment/comment.component';
+import { RoleManage } from './pages/role-manage/role-manage-component.component';
+import { adminGuard } from './service/admin-guard.guard';
 
 export const routes: Routes = [
     { path: "home", component: HomeComponent, canActivate: [authGuard] },
@@ -37,6 +39,7 @@ export const routes: Routes = [
         ], component: WorkDetailComponent, canActivate: [workDetailGuard]
     },
     { path: "login", component: LoginComponent },
+    { path: "roleMng", component: RoleManage,canActivate:[authGuard,adminGuard] },
     { path: "forgot", component: ForgotPasswordComponent },
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: '**', component: NotFoundComponent }];

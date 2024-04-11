@@ -19,6 +19,7 @@ export class AuthHeaderInterceptor implements HttpInterceptor {
     let authReq = request
     if (token && request.url.includes(environment.apiUrl)) {
       authReq = request.clone({ setHeaders: { Authorization: token } });
+      
     }
     return next.handle(authReq);
   }

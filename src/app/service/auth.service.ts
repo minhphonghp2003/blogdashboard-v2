@@ -22,6 +22,10 @@ export class AuthService {
     return auth.length != 0
 
   }
+  checkAdmin() {
+    let api = BASE_URL + "/user/checkAdmin"
+    return this.httpClient.get(api)
+  }
   logout() {
     this.cookieService.delete("Auth")
     this.router.navigate(["/login"]).then(() => {

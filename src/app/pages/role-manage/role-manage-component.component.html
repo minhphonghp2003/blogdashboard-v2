@@ -1,0 +1,66 @@
+<app-box>
+
+    <p-table [value]="roles" dataKey="name">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="name">Role <p-sortIcon field="name"></p-sortIcon></th>
+                <th style="width: 5rem"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-role let-expanded="expanded">
+            <tr>
+                <td>{{role.name}}</td>
+
+                <td>
+                    <button type="button" pButton pRipple [pRowToggler]="role"
+                        class="p-button-text p-button-rounded p-button-plain"
+                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="rowexpansion" let-role>
+            <tr>
+                <td colspan="7">
+                    <div class="p-2">
+                        <app-box>
+                            <p-table [value]="role.actions" selectionMode="multiple"
+                                [(selection)]="selectedDeletedActions" styleClass="mt-5" dataKey="id"
+                                [tableStyle]="{'min-width': '50rem'}">
+                                <ng-template pTemplate="caption">
+                                    <p-button styleClass="bg-active p-3 text-black" (click)="onToggleClicked(role)"
+                                        label="Gan action"></p-button>
+                                    <p-button [disabled]="selectedDeletedActions.length==0"
+                                        styleClass="bg-red-500 ml-8 p-3 text-black" (click)="detachAction(role)"
+                                        label="Xoa action"></p-button>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+            <tr>
+                <th>Action</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-action let-rowIndex="rowIndex">
+            <tr [pSelectableRow]="action" [pSelectableRowIndex]="rowIndex">
+                <td>{{action.name}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</app-box>
+</div>
+</td>
+</tr>
+</ng-template>
+</p-table>
+
+
+<p-dialog styleClass="w-[40%]" header="Action" [(visible)]="toggleAddDialog">
+    <button pButton pRipple type="button" label="Xac nhan" class="bg-active w-full p-4 text-black"
+        (click)="assignActionToRole()"></button>
+    <p-listbox [options]="allApis" [(ngModel)]="selectedActions" [checkbox]="true" [multiple]="true">
+        <ng-template let-api>
+            <div>{{api}}</div>
+        </ng-template>
+    </p-listbox>
+
+</p-dialog>
+</app-box>
