@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../environments/environment';
 import { UserDetail } from '../model/UserDetail';
 import { StorageService } from './storage.service';
+import { User } from '../model/User';
 
 const BASE_URL = environment.apiUrl
 
@@ -37,5 +38,9 @@ export class UserService {
   getUserIdFromToken() {
     let token = this.storageService.getCookie("Auth")
     return atob(token.split('.')[1])
+  }
+  getAllUser() {
+    let url = BASE_URL + "/user/alluser"
+    return this.httpClient.get<User[]>(url)
   }
 }

@@ -16,7 +16,8 @@
         @apply text-2xl;
         @apply font-bold
     }
-    h3{
+
+    h3 {
 
         @apply text-xl;
         @apply font-semibold

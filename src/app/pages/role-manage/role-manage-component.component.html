@@ -3,7 +3,8 @@
     <p-table [value]="roles" dataKey="name">
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="name">Role <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="name">Role <p-sortIcon field="name"></p-sortIcon>
+                </th>
                 <th style="width: 5rem"></th>
             </tr>
         </ng-template>
@@ -36,7 +37,7 @@
                                 </ng-template>
                                 <ng-template pTemplate="header">
             <tr>
-                <th>Action</th>
+                <th pSortableColumn="name">Action <p-sortIcon field="name"></p-sortIcon></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-action let-rowIndex="rowIndex">

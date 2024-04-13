@@ -1,0 +1,136 @@
+<p-table #dt [value]="allUsers" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10,25,50]" [paginator]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+    [globalFilterFields]="['fullName','credential.username','credential.email','status.name','phone']"
+    (onRowSelect)="selectRow()" [(selection)]="selectedUser" selectionMode="single">
+    <ng-template pTemplate="caption">
+        <div class="table-header flex justify-between">
+            Danh sach user
+            <span class="p-input-icon-left">
+                <!-- <i class="pi pi-search"></i> -->
+                <input pInputText type="text" placeholder="Search" (input)="filter($event.target,dt)" />
+            </span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+
+            <th pSortableColumn="fullName" style="min-width: 14rem">
+                <div class="flex justify-content-between align-items-center">
+                    Full name
+                    <p-sortIcon field="fullName"></p-sortIcon>
+                </div>
+            </th>
+            <th pSortableColumn="credential.username" style="min-width: 14rem">
+                <div class="flex justify-content-between align-items-center">
+                    Username
+                    <p-sortIcon field="credential.username"></p-sortIcon>
+                </div>
+            </th>
+            <th pSortableColumn="credential.email" style="min-width: 14rem">
+                <div class="flex justify-content-between align-items-center">
+                    Email
+                    <p-sortIcon field="credential.email"></p-sortIcon>
+                </div>
+            </th>
+            <th pSortableColumn="phone" style="min-width: 10rem">
+                <div class="flex justify-content-between align-items-center">
+                    Phone
+                </div>
+            </th>
+            <th pSortableColumn="role" style="min-width: 10rem">
+                <div class="flex justify-content-between align-items-center">
+                    Roles
+                </div>
+            </th>
+            <!-- <th pSortableColumn="status" style="min-width: 10rem">
+                <div class="flex justify-content-between align-items-center">
+                    Status
+                    <p-sortIcon field="status"></p-sortIcon>
+                </div>
+            </th> -->
+            <th style="width: 5rem"></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+        <tr class="p-selectable-row" [pSelectableRow]="user">
+            <td class="flex items-center gap-2">
+                <span class="p-column-title">Name</span>
+                <img alt="avt" [src]="user.avatar" width="32px" style="vertical-align: middle" class="rounded-full" />
+                {{user.fullName}}
+            </td>
+            <td>
+                <span class="p-column-title">Username</span>
+                <span class="image-text">{{user.credential.username}}</span>
+            </td>
+            <td>
+                <span class="p-column-title">Email</span>
+                <span class="image-text">{{user.credential.email}}</span>
+            </td>
+            <td>
+                <span class="p-column-title">Phone</span>
+                {{user.phone}}
+            </td>
+            <td>
+                <span class="p-column-title">Roles</span>
+                <p-badge styleClass="mr-2" [severity]="role.color" *ngFor="let role of user.roles"
+                    [value]="role.name | lowercase"></p-badge>
+                <!-- <span *ngFor="let role of user.roles" class="flex flex-wrap gap-2"
+                    [class]="">{{role.name | lowercase}}</span> -->
+            </td>
+            <!-- <td>
+                <span class="p-column-title">Status</span>
+                <span [class]="user.status.name=='ACTIVE'?'text-active':'text-red-600'">{{user.status.name}}</span>
+            </td> -->
+        </tr>
+    </ng-template>
+
+</p-table>
+<p-dialog styleClass="h-[80vh]" header="Setting" (onHide)="resetData()" [(visible)]="isSelected">
+    <div>
+        <p-table *ngIf="selectedUser" [value]="allRoles" [(selection)]="selectedUser.roles" dataKey="id">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 4rem">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th>Role</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-role>
+                <tr>
+                    <td>
+                        <p-tableCheckbox [value]="role"></p-tableCheckbox>
+                    </td>
+                    <td>{{role.name}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <button type="button"
+            class=" w-full self-start p-4 bg-active rounded-2xl hover:bg-blue-600 text-black font-semibold justify-self-end"
+            (click)="onSetRole()">Cap nhat role</button>
+    </div>
+    <app-box>
+
+        <div class="flex justify-between mt-10">
+            <input class="w-[50vw]" placeholder="New password" type="password" pInputText [(ngModel)]="newPassword" />
+            <button type="button"
+                class="self-start p-4 bg-active rounded-2xl hover:bg-blue-600 text-black font-semibold justify-self-end"
+                (click)="onSetPasswd()">Cap nhat password</button>
+        </div>
+    </app-box>
+    <app-box>
+
+        <div class="card mt-10">
+            <h5 class="text-lg font-semibold mb-4">Nhat ky hoat dong</h5>
+            <p-timeline [value]="userEvents">
+                <ng-template pTemplate="content" let-event>
+                    <small class="p-text-secondary">{{event.createdAt | date}}</small>
+                </ng-template>
+                <ng-template pTemplate="opposite" let-event>
+                    {{event.action}}
+                </ng-template>
+            </p-timeline>
+        </div>
+    </app-box>
+</p-dialog>

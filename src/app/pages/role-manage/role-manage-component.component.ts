@@ -18,7 +18,7 @@ import { BoxComponent } from '../../components/box/box.component';
   templateUrl: './role-manage-component.component.html',
   styleUrl: './role-manage-component.component.css'
 })
-export class RoleManage implements OnInit {
+export class RoleManageComponent implements OnInit {
 
   constructor(private roleService: RoleService, private messageService: MessageService) {
 
@@ -26,7 +26,7 @@ export class RoleManage implements OnInit {
   toggleAddDialog = false
   allApis = []
   selectedActions!: string[]
-  selectedRoleId!: number
+  selectedRole!: Role
   selectedDeletedActions: IdName[] = []
   roles!: Role[]
   ngOnInit(): void {
@@ -54,13 +54,18 @@ export class RoleManage implements OnInit {
     });
   }
   assignActionToRole() {
-    this.messageService.add({ key: "k1", severity: 'info', summary: 'Hold on', detail: 'Doi ti nao' });
+    this.toggleAddDialog = false
     this.selectedActions.forEach(action => {
-      this.roleService.assignAction(this.selectedRoleId, action).subscribe(
+      this.roleService.assignAction(this.selectedRole.id as number, action).subscribe(
         result => {
+          if (this.selectedRole.actions.some(a => { return a.name == (result as IdName).name })) {
+            return
+          }
+          this.selectedRole.actions.push(result as IdName)
+          this.messageService.add({ key: "k1", severity: 'success', summary: 'Success', detail: `Gan action ${action} thanh cong` });
         },
         error => {
-          window.location.reload();
+          this.messageService.add({ key: "k1", severity: 'error', summary: 'Error', detail: `Co loi khi gan action ${action}` });
         }
       )
     });
@@ -68,6 +73,6 @@ export class RoleManage implements OnInit {
   }
   onToggleClicked(role: Role) {
     this.toggleAddDialog = true
-    this.selectedRoleId = role.id as number
+    this.selectedRole = role
   }
 }

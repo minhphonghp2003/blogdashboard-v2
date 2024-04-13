@@ -33,6 +33,7 @@ export class LoginComponent {
         this.loginLog = { ...this.deviceDetector.getDeviceInfo(), browserName: this.deviceDetector.getDeviceInfo().browser, device: this.deviceDetector.deviceType }
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition((position) => {
+
             const longitude = position.coords.longitude;
             const latitude = position.coords.latitude;
             this.loginLogService.getGeoLocation(latitude, longitude).subscribe(data => {

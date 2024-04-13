@@ -31,5 +31,9 @@ export class RoleService {
     let url = BASE_URL + `/role/detachAction?roleId=${roleId}&actionId=${actionId}`
     return this.httpClient.delete(url)
   }
+  assignRoleToUser(roleIds: number[], userId: string) {
+    let url = BASE_URL + "/role/assignRole"
+    return this.httpClient.post(url, { roleId: roleIds, userId })
+  }
 
 }
