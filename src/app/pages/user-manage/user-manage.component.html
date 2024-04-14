@@ -33,12 +33,12 @@
                     <p-sortIcon field="credential.email"></p-sortIcon>
                 </div>
             </th>
-            <th pSortableColumn="phone" style="min-width: 10rem">
+            <th  style="min-width: 10rem">
                 <div class="flex justify-content-between align-items-center">
                     Phone
                 </div>
             </th>
-            <th pSortableColumn="role" style="min-width: 10rem">
+            <th  style="min-width: 10rem">
                 <div class="flex justify-content-between align-items-center">
                     Roles
                 </div>
@@ -49,7 +49,7 @@
                     <p-sortIcon field="status"></p-sortIcon>
                 </div>
             </th> -->
-            <th style="width: 5rem"></th>
+            <!-- <th style="width: 5rem"></th> -->
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-user>
@@ -73,7 +73,7 @@
             </td>
             <td>
                 <span class="p-column-title">Roles</span>
-                <p-badge styleClass="mr-2" [severity]="role.color" *ngFor="let role of user.roles"
+                <p-badge styleClass="mr-2 mb-2" [severity]="role.color" *ngFor="let role of user.roles"
                     [value]="role.name | lowercase"></p-badge>
                 <!-- <span *ngFor="let role of user.roles" class="flex flex-wrap gap-2"
                     [class]="">{{role.name | lowercase}}</span> -->
@@ -134,3 +134,44 @@
         </div>
     </app-box>
 </p-dialog>
+<app-box>
+    <p class="font-semibold">Dang ky nguoi dung</p>
+    <div class="flex gap-4">
+
+        <div class="flex flex-col gap-4 mt-8 *:h-[2rem] w-[50%] *:w-full">
+
+            <span class="p-float-label">
+                <input id="float-input" type="text" [(ngModel)]="newUser.fullName" pInputText>
+                <label for="float-input">Fullname</label>
+            </span>
+            <span class="p-float-label">
+                <input id="float-input" [(ngModel)]="newUser.username" type="text" pInputText>
+                <label for="float-input">Username</label>
+            </span>
+            <span class="p-float-label">
+                <input id="float-input" [(ngModel)]="newUser.password" type="password" pInputText>
+                <label for="float-input">Password</label>
+            </span>
+
+
+        </div>
+        <div class="flex flex-col gap-4 mt-8 *:h-[2rem] w-[50%] *:w-full">
+            <span class="p-float-label">
+                <input id="float-input" [(ngModel)]="newUser.email" type="text" pInputText>
+                <label for="float-input">Email</label>
+            </span>
+            <span class="p-float-label">
+                <input id="float-input" [(ngModel)]="newUser.phone" type="text" pInputText>
+                <label for="float-input">Phone</label>
+            </span>
+            <div class="flex gap-4 items-center justify-between">
+                <p-multiSelect [options]="allRoles" placeholder="Roles" [(ngModel)]="newUser.roles" optionLabel="name"
+                    display="chip"></p-multiSelect>
+                <button pButton type="button" label="Tao user" class="grow p-4 bg-blue-500 hover:bg-blue-600"
+                    (click)="onCreateUser()"></button>
+            </div>
+
+        </div>
+
+    </div>
+</app-box>

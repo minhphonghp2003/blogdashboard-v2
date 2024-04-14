@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { UserDetail } from '../model/UserDetail';
 import { StorageService } from './storage.service';
 import { User } from '../model/User';
+import { NewUser } from '../model/NewUser';
 
 const BASE_URL = environment.apiUrl
 
@@ -42,5 +43,10 @@ export class UserService {
   getAllUser() {
     let url = BASE_URL + "/user/alluser"
     return this.httpClient.get<User[]>(url)
+  }
+  createUser(newUser: NewUser) {
+    let url = BASE_URL + "/user/register"
+    newUser.status = "ACTIVE"
+    return this.httpClient.post(url, newUser)
   }
 }

@@ -17,6 +17,7 @@ import { LogService } from '../../service/log.service';
 import { AuthService } from '../../service/auth.service';
 import { MessageService } from 'primeng/api';
 import { BoxComponent } from '../../components/box/box.component';
+import { NewUser } from '../../model/NewUser';
 
 @Component({
   selector: 'app-user-manage',
@@ -34,6 +35,7 @@ export class UserManageComponent implements OnInit {
   allRoles!: Role[]
   newPassword!: string
   userEvents!: any[]
+  newUser: NewUser = {}
   ngOnInit(): void {
     this.userService.getAllUser().subscribe(result => {
       result.map(r => {
@@ -72,6 +74,8 @@ export class UserManageComponent implements OnInit {
   resetData() {
     this.userEvents = []
     this.isSelected = false
+    this.newUser = {}
+    this.newPassword = ""
   }
   onSetRole() {
     this.roleService.assignRoleToUser(this.selectedUser.roles.map(r => r.id as number), this.selectedUser.id).subscribe(result => {
@@ -94,5 +98,13 @@ export class UserManageComponent implements OnInit {
       })
 
     }
+  }
+  onCreateUser() {
+    this.newUser.roles = this.newUser.roles?.map(r => r.name) || []
+    this.userService.createUser(this.newUser).subscribe(result => {
+      this.messageService.add({ key: "k1", severity: 'success', summary: 'Success', detail: `Tao user ${this.newUser.fullName} thanh cong` });
+      this.resetData()
+    })
+
   }
 }
