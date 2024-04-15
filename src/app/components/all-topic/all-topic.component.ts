@@ -10,13 +10,13 @@ import { FormsModule } from '@angular/forms';
 import { StorageService } from '../../service/storage.service';
 import { PostService } from '../../service/post.service';
 import { TagModule } from 'primeng/tag';
-import {SplitButtonModule} from 'primeng/splitbutton';
+import { SplitButtonModule } from 'primeng/splitbutton';
 
 
 @Component({
   selector: 'app-all-topic',
   standalone: true,
-  imports: [CommonModule, TableModule,SplitButtonModule, InputTextModule, ButtonModule, FileUploadModule, FormsModule, TagModule],
+  imports: [CommonModule, TableModule, SplitButtonModule, InputTextModule, ButtonModule, FileUploadModule, FormsModule, TagModule],
   templateUrl: './all-topic.component.html',
   styleUrl: './all-topic.component.css'
 })
@@ -33,7 +33,14 @@ export class AllTopicComponent {
   onUpload(event: any) {
     this.addedTopicIcon = event.currentFiles[0]
   }
-  async onAccept(){
+  async onChangeStatus(topic: Topic) {
+    let targetStatus = topic.status == "ACTIVE" ? "PENDING" : "ACTIVE"
+    this.postService.changeStatus("topic/", topic.id as number, targetStatus).subscribe(result => {
+      this.messageService.add({ key: "k1", severity: 'success', summary: 'Success', detail: 'Doi status thanh cong' });
+      topic.status = targetStatus
+    }, error => {
+      this.messageService.add({ key: "k1", severity: 'error', summary: 'Error', detail: 'Co loi xay ra' });
+    })
 
   }
   async onSubmit() {

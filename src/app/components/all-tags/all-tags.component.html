@@ -13,5 +13,8 @@
 
 </div>
 <div class="mt-8 flex gap-2 flex-wrap ">
-    <p-tag *ngFor="let tag of allTags" [severity]="tag.status=='ACTIVE'?'info':'danger'" [value]="tag.name"></p-tag>
+    <!-- <p-tag *ngFor="let tag of allTags" [severity]="tag.status=='ACTIVE'?'info':'danger'" [value]="tag.name"></p-tag> -->
+    <button *ngFor="let tag of allTags" (click)="changeTagStatus(tag)"
+        class="p-1 text-sm font-semibold rounded-xl text-white "
+        [class]="tag.status=='ACTIVE'?'bg-blue-600':'bg-red-400'">{{tag.name}}</button>
 </div>

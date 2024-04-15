@@ -145,8 +145,13 @@ export class PostComponent implements OnInit {
       this.messageService.add({ key: "k1", severity: 'success', summary: 'Hoan tat', detail: 'Chuc mung ban da hoan tat dang bai' });
       this.route.navigate(["/home"])
     }, err => {
+      console.log(err);
 
-      this.messageService.add({ key: "k1", severity: 'error', summary: 'Loi', detail: 'Co loi xay ra. Vui long thu lai sau' });
+      if (err.status == 403) {
+        this.messageService.add({ key: "k1", severity: 'error', summary: '403 error', detail: 'Nguoi ae khong co quyen tao post' });
+      } else {
+        this.messageService.add({ key: "k1", severity: 'error', summary: 'Loi', detail: 'Co loi xay ra. Vui long thu lai sau' });
+      }
       this.isDisabled = false
     })
 

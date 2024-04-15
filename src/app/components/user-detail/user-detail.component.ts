@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from '../../service/user.service';
 import { MessageService } from 'primeng/api';
 
+// TODO:change avatar
 @Component({
   selector: 'app-user-detail',
   standalone: true,

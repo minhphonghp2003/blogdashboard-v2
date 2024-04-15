@@ -102,6 +102,7 @@ export class UserManageComponent implements OnInit {
   onCreateUser() {
     this.newUser.roles = this.newUser.roles?.map(r => r.name) || []
     this.userService.createUser(this.newUser).subscribe(result => {
+      
       this.messageService.add({ key: "k1", severity: 'success', summary: 'Success', detail: `Tao user ${this.newUser.fullName} thanh cong` });
       this.resetData()
     })

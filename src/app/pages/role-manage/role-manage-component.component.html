@@ -54,10 +54,10 @@
 </p-table>
 
 
-<p-dialog styleClass="w-[40%]" header="Action" [(visible)]="toggleAddDialog">
+<p-dialog styleClass="w-[40%] "  header="Action" [(visible)]="toggleAddDialog">
     <button pButton pRipple type="button" label="Xac nhan" class="bg-active w-full p-4 text-black"
         (click)="assignActionToRole()"></button>
-    <p-listbox [options]="allApis" [(ngModel)]="selectedActions" [checkbox]="true" [multiple]="true">
+    <p-listbox [options]="allApis"  [(ngModel)]="selectedActions" [checkbox]="true" [multiple]="true">
         <ng-template let-api>
             <div>{{api}}</div>
         </ng-template>

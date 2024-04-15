@@ -1,5 +1,46 @@
-<p-table #dt [value]="allUsers" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
-    [rowsPerPageOptions]="[10,25,50]" [paginator]="true"
+<app-box>
+    <p class="font-semibold">Dang ky nguoi dung</p>
+    <div class="flex gap-4">
+
+        <div class="flex flex-col gap-4 mt-8 *:h-[2rem] w-[50%] *:w-full">
+
+            <span class="p-float-label">
+                <input id="float-input" type="text" [(ngModel)]="newUser.fullName" pInputText>
+                <label for="float-input">Fullname</label>
+            </span>
+            <span class="p-float-label">
+                <input id="float-input" [(ngModel)]="newUser.username" type="text" pInputText>
+                <label for="float-input">Username</label>
+            </span>
+            <span class="p-float-label">
+                <input id="float-input" [(ngModel)]="newUser.password" type="password" pInputText>
+                <label for="float-input">Password</label>
+            </span>
+
+
+        </div>
+        <div class="flex flex-col gap-4 mt-8 *:h-[2rem] w-[50%] *:w-full">
+            <span class="p-float-label">
+                <input id="float-input" [(ngModel)]="newUser.email" type="text" pInputText>
+                <label for="float-input">Email</label>
+            </span>
+            <span class="p-float-label">
+                <input id="float-input" [(ngModel)]="newUser.phone" type="text" pInputText>
+                <label for="float-input">Phone</label>
+            </span>
+            <div class="flex gap-4 items-center justify-between">
+                <p-multiSelect [options]="allRoles" placeholder="Roles" [(ngModel)]="newUser.roles" optionLabel="name"
+                    display="chip"></p-multiSelect>
+                <button pButton type="button" label="Tao user" class="text-white grow p-4 bg-blue-500 hover:bg-blue-600"
+                    (click)="onCreateUser()"></button>
+            </div>
+
+        </div>
+
+    </div>
+</app-box>
+<p-table #dt styleClass="mt-10" [value]="allUsers" dataKey="id" [rowHover]="true" [rows]="10"
+    [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [paginator]="true"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
     [globalFilterFields]="['fullName','credential.username','credential.email','status.name','phone']"
     (onRowSelect)="selectRow()" [(selection)]="selectedUser" selectionMode="single">
@@ -12,7 +53,7 @@
             </span>
         </div>
     </ng-template>
-    <ng-template pTemplate="header">
+    <ng-template  pTemplate="header">
         <tr>
 
             <th pSortableColumn="fullName" style="min-width: 14rem">
@@ -33,23 +74,17 @@
                     <p-sortIcon field="credential.email"></p-sortIcon>
                 </div>
             </th>
-            <th  style="min-width: 10rem">
+            <th style="min-width: 10rem">
                 <div class="flex justify-content-between align-items-center">
                     Phone
                 </div>
             </th>
-            <th  style="min-width: 10rem">
+            <th style="min-width: 10rem">
                 <div class="flex justify-content-between align-items-center">
                     Roles
                 </div>
             </th>
-            <!-- <th pSortableColumn="status" style="min-width: 10rem">
-                <div class="flex justify-content-between align-items-center">
-                    Status
-                    <p-sortIcon field="status"></p-sortIcon>
-                </div>
-            </th> -->
-            <!-- <th style="width: 5rem"></th> -->
+
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-user>
@@ -107,7 +142,7 @@
             </ng-template>
         </p-table>
         <button type="button"
-            class=" w-full self-start p-4 bg-active rounded-2xl hover:bg-blue-600 text-black font-semibold justify-self-end"
+            class=" w-full self-start p-4 bg-active rounded-2xl hover:bg-blue-600 text-white font-semibold justify-self-end"
             (click)="onSetRole()">Cap nhat role</button>
     </div>
     <app-box>
@@ -115,7 +150,7 @@
         <div class="flex justify-between mt-10">
             <input class="w-[50vw]" placeholder="New password" type="password" pInputText [(ngModel)]="newPassword" />
             <button type="button"
-                class="self-start p-4 bg-active rounded-2xl hover:bg-blue-600 text-black font-semibold justify-self-end"
+                class="text-white self-start p-4 bg-active rounded-2xl hover:bg-blue-600  font-semibold justify-self-end"
                 (click)="onSetPasswd()">Cap nhat password</button>
         </div>
     </app-box>
@@ -134,44 +169,3 @@
         </div>
     </app-box>
 </p-dialog>
-<app-box>
-    <p class="font-semibold">Dang ky nguoi dung</p>
-    <div class="flex gap-4">
-
-        <div class="flex flex-col gap-4 mt-8 *:h-[2rem] w-[50%] *:w-full">
-
-            <span class="p-float-label">
-                <input id="float-input" type="text" [(ngModel)]="newUser.fullName" pInputText>
-                <label for="float-input">Fullname</label>
-            </span>
-            <span class="p-float-label">
-                <input id="float-input" [(ngModel)]="newUser.username" type="text" pInputText>
-                <label for="float-input">Username</label>
-            </span>
-            <span class="p-float-label">
-                <input id="float-input" [(ngModel)]="newUser.password" type="password" pInputText>
-                <label for="float-input">Password</label>
-            </span>
-
-
-        </div>
-        <div class="flex flex-col gap-4 mt-8 *:h-[2rem] w-[50%] *:w-full">
-            <span class="p-float-label">
-                <input id="float-input" [(ngModel)]="newUser.email" type="text" pInputText>
-                <label for="float-input">Email</label>
-            </span>
-            <span class="p-float-label">
-                <input id="float-input" [(ngModel)]="newUser.phone" type="text" pInputText>
-                <label for="float-input">Phone</label>
-            </span>
-            <div class="flex gap-4 items-center justify-between">
-                <p-multiSelect [options]="allRoles" placeholder="Roles" [(ngModel)]="newUser.roles" optionLabel="name"
-                    display="chip"></p-multiSelect>
-                <button pButton type="button" label="Tao user" class="grow p-4 bg-blue-500 hover:bg-blue-600"
-                    (click)="onCreateUser()"></button>
-            </div>
-
-        </div>
-
-    </div>
-</app-box>

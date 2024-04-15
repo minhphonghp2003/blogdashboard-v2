@@ -38,4 +38,13 @@ export class AllTagsComponent {
 
     })
   }
+  changeTagStatus(tag: Tag) {
+    let targetStatus = tag.status == "ACTIVE" ? "PENDING" : "ACTIVE"
+    this.postService.changeStatus("tag/", tag.id as number, targetStatus).subscribe(result => {
+      this.messageService.add({ key: "k1", severity: 'success', summary: 'Success', detail: 'Doi status thanh cong' });
+      tag.status = targetStatus
+    }, error => {
+      this.messageService.add({ key: "k1", severity: 'error', summary: 'Error', detail: 'Co loi xay ra' });
+    })
+  }
 }

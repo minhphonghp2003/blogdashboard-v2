@@ -36,7 +36,10 @@
             <td>{{rlist.name}}</td>
             <td><img [src]="rlist.image" [alt]="rlist.name" width="50" class="shadow-4" /></td>
             <td class="">{{rlist.description}}</td>
-            <td><p-tag [value]="rlist.status" [severity]="rlist.status=='ACTIVE'?'success':'danger'"></p-tag></td>
+            <td>
+                <button (click)="changeRListStatus(rlist)" class="p-2 text-sm font-semibold rounded-xl text-white "
+                    [class]="rlist.status=='ACTIVE'?'bg-blue-600':'bg-red-400'">{{rlist.status}}</button>
+            </td>
         </tr>
     </ng-template>
     <ng-template pTemplate="summary">

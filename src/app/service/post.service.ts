@@ -25,7 +25,7 @@ export class PostService {
   }
   getPostDetail(id: number) {
 
-    let url = BASE_URL + "/post/"
+    let url = BASE_URL + "/post/detail"
     let params = new HttpParams({ fromObject: { id } })
     return this.httpClient.get<PostDetail>(url, { params })
   }
@@ -80,5 +80,9 @@ export class PostService {
   createComment(comment: Comment) {
     let url = BASE_URL + "/comment/"
     return this.httpClient.post<Comment>(url, comment)
+  }
+  changeStatus(targetApi: string, targetId: number, status: string) {
+    let url = BASE_URL + `/${targetApi}status`
+    return this.httpClient.put(url, { targetId, status })
   }
 }

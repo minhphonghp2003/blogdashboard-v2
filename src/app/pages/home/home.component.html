@@ -7,7 +7,7 @@
                 </p>
                 <div class="mt-12 shadow-2xl">
                     <app-box>
-                        <div>
+                        <div *ngIf="userDetail">
                             <p
                                 class="text-xl font-semibold bg-gradient-to-r from-indigo-600 via-cyan-500 to-purple-400 inline-block text-transparent bg-clip-text ">
                                 {{userDetail.userInformation.fullName}}</p>

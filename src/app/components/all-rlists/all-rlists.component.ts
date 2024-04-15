@@ -59,6 +59,15 @@ export class AllRListsComponent {
 
       this.messageService.add({ key: "k1", severity: 'error', summary: 'Error', detail: 'Co loi xay ra, xin dung thu lai' });
     })
+  }
+  changeRListStatus(rlist: ReadingList) {
+    let targetStatus = rlist.status == "ACTIVE" ? "PENDING" : "ACTIVE"
+    this.postService.changeStatus("readingList/", rlist.id as number, targetStatus).subscribe(result => {
+      this.messageService.add({ key: "k1", severity: 'success', summary: 'Success', detail: 'Doi status thanh cong' });
+      rlist.status = targetStatus
+    }, error => {
+      this.messageService.add({ key: "k1", severity: 'error', summary: 'Error', detail: 'Co loi xay ra' });
+    })
 
   }
 }
