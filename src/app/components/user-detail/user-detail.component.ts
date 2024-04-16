@@ -9,8 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../service/user.service';
 import { MessageService } from 'primeng/api';
+import { StorageService } from '../../service/storage.service';
 
-// TODO:change avatar
 @Component({
   selector: 'app-user-detail',
   standalone: true,
@@ -19,11 +19,12 @@ import { MessageService } from 'primeng/api';
   styleUrl: './user-detail.component.css'
 })
 export class UserDetailComponent implements OnChanges {
-  constructor(private userService: UserService, private messageService: MessageService) {
+  constructor(private userService: UserService, private messageService: MessageService, private storageService: StorageService) {
 
   }
   @Input()
   userDetail!: UserDetail
+  newAvatar?: any
   newUserDetail = {
     fullName: "",
     bio: "",
@@ -32,6 +33,7 @@ export class UserDetailComponent implements OnChanges {
   isEditable = false
   isLoading = false
   ngOnChanges(changes: SimpleChanges): void {
+
     this.newUserDetail = { ...this.userDetail.userInformation }
   }
   toggleEdit() {
@@ -47,7 +49,6 @@ export class UserDetailComponent implements OnChanges {
 
     } else {
       this.isEditable = !this.isEditable
-
     }
   }
   toggleCancle() {
@@ -55,4 +56,14 @@ export class UserDetailComponent implements OnChanges {
     this.isEditable = !this.isEditable
   }
 
+  async onAvatarChanged(event: any) {
+    let result = await this.storageService.uploadImage(`avatar/${this.userDetail.username}`, event.target.files[0])
+    this.messageService.add({ key: "k1", severity: 'success', summary: 'Success', detail: 'Thay anh dai dien thanh cong' })
+
+
+  }
+  onChangeAvtClicked(avatarFileId: any) {
+    avatarFileId.click()
+
+  }
 }

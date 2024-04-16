@@ -84,21 +84,21 @@ export class UserManageComponent implements OnInit {
       this.resetData()
     })
   }
-  onSetPasswd() {
-    if (this.newPassword) {
-      this.authService.getRecvPassToken(this.selectedUser.credential.email).subscribe(recvToken => {
-        this.authService.updatePassword({ password: this.newPassword, token: (recvToken as any).token }).subscribe(result => {
-        }, error => {
-          if (error.status == 200) {
-            this.resetData()
-            this.messageService.add({ key: "k1", severity: 'success', summary: 'Success', detail: 'Update password thanh cong' });
-          }
-        })
+  // onSetPasswd() {
+  //   if (this.newPassword) {
+  //     this.authService.getRecvPassToken(this.selectedUser.credential.email).subscribe(recvToken => {
+  //       this.authService.updatePassword({ password: this.newPassword, token: (recvToken as any).token }).subscribe(result => {
+  //       }, error => {
+  //         if (error.status == 200) {
+  //           this.resetData()
+  //           this.messageService.add({ key: "k1", severity: 'success', summary: 'Success', detail: 'Update password thanh cong' });
+  //         }
+  //       })
 
-      })
+  //     })
 
-    }
-  }
+  //   }
+  // }
   onCreateUser() {
     this.newUser.roles = this.newUser.roles?.map(r => r.name) || []
     this.userService.createUser(this.newUser).subscribe(result => {

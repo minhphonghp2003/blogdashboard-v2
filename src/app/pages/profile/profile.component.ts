@@ -22,6 +22,17 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUserDetail().subscribe(result => {
       result.userInformation.avatar = this.storageService.extractImage(result.userInformation.avatar || "")
+      result.roles.map(role => {
+        if (role.name == "ADMIN") {
+          role.color = "danger"
+        }
+        else if (role.name == "MODERATOR") {
+          role.color = "warning"
+        } else {
+          role.color = "info"
+        }
+      })
+
       this.userDetail = result
     })
 

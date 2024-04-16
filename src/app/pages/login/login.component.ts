@@ -31,7 +31,6 @@ export class LoginComponent {
       if (token) {
         this.storageService.addCookie({ name: "Auth", value: token })
         this.loginLog = { ...this.deviceDetector.getDeviceInfo(), browserName: this.deviceDetector.getDeviceInfo().browser, device: this.deviceDetector.deviceType }
-        // TODO: geolocation
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition((position) => {
 
@@ -44,6 +43,10 @@ export class LoginComponent {
                   window.location.reload();
                 })
               })
+            })
+          }, error => {
+            this.router.navigate(["/home"]).then(() => {
+              window.location.reload();
             })
           });
         }

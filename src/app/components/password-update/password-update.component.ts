@@ -31,29 +31,26 @@ export class PasswordUpdateComponent {
     this.isLoading = true
 
     this.messageService.add({ key: "k1", severity: 'info', summary: 'Hold on', detail: 'Voi long doi chut  lat' })
-    this.authService.getRecvPassToken(this.email).subscribe(data => {
-      let token = (data as any).token
-      this.authService.updatePassword({ token: token, password: this.password }).subscribe(result => {
+    this.authService.updatePassword({ password: this.password }).subscribe(result => {
+
+      this.messageService.add({ key: "k1", severity: 'success', summary: 'Completed', detail: 'Ban da cap nhat password thanh cong' })
+      this.isLoading = false
+      this.password = ""
+      this.confirm = ""
+    }, error => {
+      if (error.status == 200) {
 
         this.messageService.add({ key: "k1", severity: 'success', summary: 'Completed', detail: 'Ban da cap nhat password thanh cong' })
         this.isLoading = false
         this.password = ""
         this.confirm = ""
-      }, error => {
-        if (error.status == 200) {
-
-          this.messageService.add({ key: "k1", severity: 'success', summary: 'Completed', detail: 'Ban da cap nhat password thanh cong' })
-          this.isLoading = false
-          this.password = ""
-          this.confirm = ""
-        } else {
-          this.messageService.add({ key: "k1", severity: 'error', summary: 'Loi', detail: 'Co loi xay ra' })
-          this.isLoading = false
-        }
-
-      })
-
+      } else {
+        this.messageService.add({ key: "k1", severity: 'error', summary: 'Loi', detail: 'Co loi xay ra' })
+        this.isLoading = false
+      }
 
     })
+
+
   }
 }

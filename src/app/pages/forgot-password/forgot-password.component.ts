@@ -40,17 +40,7 @@ export class ForgotPasswordComponent implements OnInit {
     this.messageService.add({ key: "k1", severity: 'info', summary: 'Hold on', detail: 'Vui long doi mot lat' });
     if (this.inputField.name === "Email") {
       this.authService.getRecvPassToken(this.value).subscribe(result => {
-
-        let emailBody: EmailForm = {
-          server: environment.frontEnd + "/forgot",
-          to: this.value,
-          token: (result as Token).token
-        }
-        this.authService.sendResetLinkEmail(emailBody).subscribe(data => {
-
-          this.messageService.add({ key: "k1", severity: 'success', summary: 'Email da duoc gui', detail: 'Vui long kiem tra email de reset password', life: 7000 });
-
-        })
+        this.messageService.add({ key: "k1", severity: 'success', summary: 'Email da duoc gui', detail: 'Vui long kiem tra email de reset password', life: 7000 });
       }, error => {
 
         this.messageService.add({ key: "k1", severity: 'error', summary: 'Loi', detail: 'Co loi xay ra vui long thu lai' });

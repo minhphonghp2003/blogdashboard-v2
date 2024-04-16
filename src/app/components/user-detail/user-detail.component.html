@@ -1,15 +1,17 @@
 <div class="">
     <div class="flex flex-col items-center">
-        <img [src]="userDetail.userInformation.avatar" class="w-[10rem] rounded-xl shadow-xl mb-5" alt="">
+        <button (click)="onChangeAvtClicked(avatarFile)">
+            <img [src]="userDetail.userInformation.avatar" class="w-[10rem] rounded-xl shadow-xl mb-5" alt="">
+        </button>
         <div class="flex gap-4">
-            <p-badge *ngFor="let role of userDetail.roles" [value]="role.name"></p-badge>
+            <p-badge *ngFor="let role of userDetail.roles" [severity]="role.color" [value]="role.name"></p-badge>
         </div>
     </div>
     <div class="[&>p>span]:text-icon px-4   [&>p>input]:text-icon text-gray-700 leading-10">
 
-        <p>Trang thai
+        <!-- <p>Trang thai
             <p-badge severity="success" [value]="userDetail.status.name"></p-badge>
-        </p>
+        </p> -->
         <p>Email
             <span class="">{{userDetail.email}}</span>
         </p>
@@ -38,10 +40,12 @@
     <div class="w-[20vw] m-auto flex gap-7">
 
         <button [disabled]="isLoading" (click)="toggleEdit()"
-            class="w-full mt-7 bg-active hover:bg-blue-600 duration-500 text-white rounded-lg p-2">{{isEditable?"Xac nhan":"Cap nhat"}}</button>
+            class="w-full mt-7 bg-active hover:bg-blue-600 duration-500 text-white rounded-lg p-2">{{isEditable?"Xac
+            nhan":"Cap nhat"}}</button>
         <button (click)="toggleCancle()" *ngIf="isEditable"
             class="w-full mt-7 bg-red-300 hover:bg-red-400 duration-500 text-white rounded-lg p-2">Huy</button>
 
     </div>
 
 </div>
+<input #avatarFile (change)="onAvatarChanged($event)" accept="image/*" type="file" style="visibility:hidden" />
