@@ -1,0 +1,68 @@
+<div *ngIf="!isLoading" class="cursor-pointer ">
+    <app-box *ngFor="let post of allPosts">
+        <div class="flex justify-between hover:scale-110 duration-500" (click)="onClick(post)">
+            <div class="">
+                <p class="font-semibold text-lg">{{post.title}}</p>
+                <p class="text-icon">{{post.topic.name}}</p>
+            </div>
+            <div class="flex flex-col items-end">
+                <p-badge [value]="post.status" [severity]="post.status=='PENDING'?'danger':'info'"></p-badge>
+                <p class="text-icon">{{post.createdAt | date}}</p>
+            </div>
+        </div>
+    </app-box>
+</div>
+<div *ngIf="isLoading" class="custom-skeleton p-4">
+    <ul class="m-0 o-0">
+        <li class="mb-3">
+            <div class="flex">
+                <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+                <div style="flex: 1">
+                    <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
+                    <p-skeleton width="75%"></p-skeleton>
+                </div>
+            </div>
+        </li>
+        <li class="mb-3">
+            <div class="flex">
+                <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+                <div style="flex: 1">
+                    <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
+                    <p-skeleton width="75%"></p-skeleton>
+                </div>
+            </div>
+        </li>
+        <li class="mb-3">
+            <div class="flex">
+                <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+                <div style="flex: 1">
+                    <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
+                    <p-skeleton width="75%"></p-skeleton>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="flex">
+                <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+                <div style="flex: 1">
+                    <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
+                    <p-skeleton width="75%"></p-skeleton>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+<p-paginator [showJumpToPageDropdown]="true" [rows]="postReq.limit" [totalRecords]="totalElement"
+    (onPageChange)="paginate($event)"></p-paginator>
+
+<p-dialog header="" [(visible)]="dialogShow">
+    <div>
+        <button (click)="changeStatus()" class="bg-black text-white p-4 text-center w-full rounded-xl mb-4">Change
+            status</button>
+        <div class="w-[50vw] mt-4">
+            <input class="w-full h-[4rem] text-lg p-2 mb-4" type="text" [(ngModel)]="comment" placeholder="Comment...">
+            <button (click)="onComment()"
+                class="bg-black text-white p-4 text-center w-[50%] m-auto rounded-xl">Submit</button>
+        </div>
+    </div>
+</p-dialog>

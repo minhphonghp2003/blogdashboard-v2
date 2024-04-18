@@ -9,7 +9,7 @@ interface Statistic {
 }
 
 
-export interface PostDetail  {
+export interface PostDetail {
     id: number,
     imageLink: string,
     title: string,
@@ -18,8 +18,9 @@ export interface PostDetail  {
     topic: Topic,
     likeReader: IdName[],
     tags: Tag[],
-    readingList?:ReadingList,
+    readingList?: ReadingList,
     postStatistic: Statistic,
     createdAt: string,
+    status: string,
     postLink: string
 }

@@ -19,11 +19,16 @@ export class LogService {
     let url = `https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=5fb4a98f7dd5415eaa05ac28baebba7d`
     return this.httpClient.get(url);
   }
+  getGeoLocationByIp() {
+
+    let url = "http://ip-api.com/json/"
+    return this.httpClient.get(url)
+  }
   updateLoginLog(loginLog: LoginLog) {
     let logUrl = environment.apiUrl + "/log/"
     return this.httpClient.post<LoginLog>(logUrl, loginLog)
   }
-  getActivities(id: string ) {
+  getActivities(id: string) {
     let logUrl = environment.apiUrl + "/log/activity?userId=" + id
     return this.httpClient.get<ActivityLog[]>(logUrl)
   }

@@ -31,8 +31,8 @@ export class SidenavComponent implements OnChanges {
     { name: "Quan li nguoi dung", icon: "manage_accounts", path: "userMng" },
     { name: "Quan li phan quyen", icon: "admin_panel_settings", path: "roleMng" },
     { name: "Quan li bai viet", icon: "edit_document", path: "postMng" },
-    { name: "Quan li doc gia", icon: "local_library", path: "readerMng" },
-    { name: "Thong ke", icon: "signal_cellular_alt", path: "statistic" },
+    { name: "Thong tin doc gia", icon: "local_library", path: "readerMng" },
+    // { name: "Thong ke", icon: "signal_cellular_alt", path: "statistic" },
   ]
   activeClass = ["!text-active", "after:w-[4px]", "after:bg-active", "after:rounded", "after:ml-3"]
 

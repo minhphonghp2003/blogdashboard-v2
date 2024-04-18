@@ -10,7 +10,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   if (authService.isLoggedIn()) {
     return true;
   }
-  messageService.add({ key: "k1", severity: 'warn', summary: 'Truy cap tu choi', detail: 'Ban khong co quyen truy cap trang nay' });
+  messageService.add({ key: "k1", severity: 'error', summary: 'Truy cap tu choi', detail: 'Ban khong co quyen truy cap trang nay' });
   router.navigate(["/login"])
   return false;
 };

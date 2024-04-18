@@ -1,8 +1,10 @@
 <div class="flex gap-4 flex-wrap justify-between mb-4" infiniteScroll [infiniteScrollDistance]="2"
     [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
-    <div *ngFor="let post of allPosts" class="w-[30%] ">
+    <div *ngFor="let post of allPosts" class="w-[30%] relative">
+
+        <p-badge *ngIf="post.status=='PENDING'" severity="danger" class="absolute -top-2" value="PENDING"></p-badge>
         <img [ngSrc]="post.imageLink" width="400" height="200" alt="image" priority class="w-full rounded-lg mb-4">
-        <div class=" relative bottom-7  flex justify-center gap-4">
+        <div class=" relative bottom-7  flex justify-center ">
             <p-badge severity="success" [value]="'views: ' + post.postStatistic.viewCount"></p-badge>
             <p-badge severity="warning" [value]="'likes: ' + post.likeReader.length"></p-badge>
         </div>

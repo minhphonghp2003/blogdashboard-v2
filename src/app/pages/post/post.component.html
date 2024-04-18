@@ -19,7 +19,7 @@
     </p-fileUpload>
 
     <app-box>
-        <div class="flex justify-center items-center gap-32 ">
+        <div class="flex justify-between items-center ">
 
             <p-dropdown placeholder="Reading list" [showClear]="true" [options]="readingLists"
                 [(ngModel)]="selectedReadingList" optionLabel="name"></p-dropdown>
@@ -27,16 +27,21 @@
                 optionLabel="name"></p-dropdown>
             <p-multiSelect [options]="tags" defaultLabel="Tags" [(ngModel)]="selectedTagIds" optionLabel="name"
                 optionValue="id"></p-multiSelect>
-            <p-splitButton *ngIf="!postId" [disabled]="isDisabled" class="grow text-end"
+            <p-splitButton *ngIf="!postId" [disabled]="isDisabled" class=" text-end"
                 styleClass="p-button-raised p-button-info p-button-text p-3" label="Post" icon="pi pi-check-circle"
                 (onClick)="post()" [model]="buttonItems"></p-splitButton>
-            <p-splitButton *ngIf="postId" [disabled]="isDisabled" class="grow text-end"
+            <p-splitButton *ngIf="postId" [disabled]="isDisabled" class=" text-end"
                 styleClass="p-button-raised p-button-info p-button-text p-3" label="Update" icon="pi pi-check-circle"
                 (onClick)="update()" [model]="buttonItems"></p-splitButton>
-            <input (change)="uploaded($event)" id="uploadInput" type="file" style="visibility:hidden" />
             <!-- <p-fileUpload styleClass="invisible uploadInput" id="" (onUpload)="uploaded($event)"> -->
             <!-- </p-fileUpload> -->
+            <div *ngIf="!postId" class="flex gap-4 self-center">
+                <span class="">Auto save to cloud</span>
+                <p-inputSwitch [(ngModel)]="isAutoSaved" (onChange)="handleAutoSave($event)"></p-inputSwitch>
+
+            </div>
         </div>
     </app-box>
     <div class="shadow-2xl p-14 rounded-lg bg-white" id="editor-js"></div>
 </div>
+<input (change)="uploaded($event)" id="uploadInput" type="file" style="visibility:hidden" />

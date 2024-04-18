@@ -6,6 +6,7 @@ import { UserDetail } from '../model/UserDetail';
 import { StorageService } from './storage.service';
 import { User } from '../model/User';
 import { NewUser } from '../model/NewUser';
+import { Reader } from '../model/Reader';
 
 const BASE_URL = environment.apiUrl
 
@@ -48,5 +49,9 @@ export class UserService {
     let url = BASE_URL + "/user/register"
     newUser.status = "ACTIVE"
     return this.httpClient.post(url, newUser)
+  }
+  getAllReader(page: number) {
+    let url = BASE_URL + `/reader/all?page=${page}`
+    return this.httpClient.get<{ content: Reader[], totalElements: number,size:number }>(url)
   }
 }

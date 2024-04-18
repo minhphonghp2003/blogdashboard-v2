@@ -16,12 +16,14 @@ import { StorageService } from '../../service/storage.service';
 import { NewPost } from '../../model/NewPost';
 import { MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
+import { InputSwitchModule } from 'primeng/inputswitch';
+
 //@ts-ignore
 import { Tools } from "./tools"
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [BoxComponent, CommonModule, FormsModule, MultiSelectModule, DropdownModule, InputTextModule, SplitButtonModule, FileUploadModule],
+  imports: [BoxComponent, InputSwitchModule, CommonModule, FormsModule, MultiSelectModule, DropdownModule, InputTextModule, SplitButtonModule, FileUploadModule],
   templateUrl: './post.component.html',
   styleUrl: './post.component.css'
 })
@@ -31,6 +33,7 @@ export class PostComponent implements OnInit {
   selectedTagIds?: number[]
   selectedReadingList?: ReadingList
   selectedTopic?: Topic
+  isAutoSaved = false
   uploadedImage?: any
   title?: string
   foreword?: string
@@ -44,6 +47,13 @@ export class PostComponent implements OnInit {
   postPath?: string
   uploadedFile?: any
   ngOnInit() {
+    document.addEventListener('keydown', e => {
+      if (e.ctrlKey && e.key === 's') {
+        // Stop app to open save window
+        e.preventDefault();
+        this.save()
+      }
+    });
     this.activeRoute.parent?.params.subscribe(result => {
       this.postId = (result as any).id
       if (!this.postId) {
@@ -75,12 +85,12 @@ export class PostComponent implements OnInit {
 
     this.buttonItems = [
       {
-        label: 'Save', icon: 'pi pi-save', command: () => {
+        label: 'Luu vao may', icon: 'pi pi-save', command: () => {
           this.save();
         }
       },
       {
-        label: 'Upload', icon: 'pi pi-upload', command: () => {
+        label: 'Tai len tu may', icon: 'pi pi-upload', command: () => {
           this.upload();
         }
       }
@@ -104,7 +114,11 @@ export class PostComponent implements OnInit {
     this.uploadedImage = undefined
 
   }
+  // TODO:auto save to cloud
+  handleAutoSave(event: any) {
+    console.log(event);
 
+  }
   async save() {
     let content = await this.editor.save()
     this.storageService.saveFile({ content: JSON.stringify(content), contentType: 'text/plain', fileName: "draft.txt" })

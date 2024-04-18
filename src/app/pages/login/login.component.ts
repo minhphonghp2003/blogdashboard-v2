@@ -23,33 +23,25 @@ export class LoginComponent {
   loginLog: LoginLog = {}
   constructor(private loginLogService: LogService, private deviceDetector: DeviceDetectorService, private messageService: MessageService, private storageService: StorageService, private authService: AuthService, private router: Router) { }
   async handleLogin() {
-    console.log(this.loginLogService);
-
     this.messageService.add({ key: "k1", severity: 'info', summary: 'Hold on', detail: 'Vui long cho mot lat' });
     this.authService.login(this.loginForm).subscribe(result => {
       let token = result.token
       if (token) {
         this.storageService.addCookie({ name: "Auth", value: token })
         this.loginLog = { ...this.deviceDetector.getDeviceInfo(), browserName: this.deviceDetector.getDeviceInfo().browser, device: this.deviceDetector.deviceType }
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition((position) => {
-
-            const longitude = position.coords.longitude;
-            const latitude = position.coords.latitude;
-            this.loginLogService.getGeoLocation(latitude, longitude).subscribe(data => {
-              this.loginLog.location = (data as any).features[0].properties.formatted
-              this.loginLogService.updateLoginLog(this.loginLog).subscribe(data => {
-                this.router.navigate(["/home"]).then(() => {
-                  window.location.reload();
-                })
+        this.loginLogService.getGeoLocationByIp().subscribe(result => {
+          let lat = (result as any).lat
+          let lon = (result as any).lon
+          this.loginLogService.getGeoLocation(lat, lon).subscribe(result => {
+            this.loginLog.location = (result as any).features[0].properties.formatted
+            this.loginLogService.updateLoginLog(this.loginLog).subscribe(data => {
+              this.router.navigate(["/home"]).then(() => {
+                window.location.reload();
               })
             })
-          }, error => {
-            this.router.navigate(["/home"]).then(() => {
-              window.location.reload();
-            })
-          });
-        }
+          })
+
+        })
       }
     }, error => {
       if (error.status === 500 || error.status === 0) {

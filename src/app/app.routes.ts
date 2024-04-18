@@ -15,6 +15,8 @@ import { CommentComponent } from './pages/comment/comment.component';
 import { RoleManageComponent } from './pages/role-manage/role-manage-component.component';
 import { adminGuard } from './service/admin-guard.guard';
 import { UserManageComponent } from './pages/user-manage/user-manage.component';
+import { PostManageComponent } from './pages/post-manage/post-manage.component';
+import { ReadersComponent } from './pages/readers/readers.component';
 
 export const routes: Routes = [
     { path: "home", component: HomeComponent, canActivate: [authGuard] },
@@ -40,8 +42,12 @@ export const routes: Routes = [
         ], component: WorkDetailComponent, canActivate: [workDetailGuard]
     },
     { path: "login", component: LoginComponent },
-    { path: "roleMng", component: RoleManageComponent,canActivate:[authGuard,adminGuard] },
-    { path: "userMng", component: UserManageComponent,canActivate:[authGuard,adminGuard] },
+    { path: "roleMng", component: RoleManageComponent, canActivate: [authGuard, adminGuard] },
+    { path: "userMng", component: UserManageComponent, canActivate: [authGuard, adminGuard] },
+    { path: "readerMng", component: ReadersComponent, canActivate: [authGuard] },
+    {
+        path: "postMng", component: PostManageComponent, canActivate: [authGuard]
+    },
     { path: "forgot", component: ForgotPasswordComponent },
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: '**', component: NotFoundComponent }];

@@ -19,7 +19,7 @@ export const workDetailGuard: CanActivateFn = (route, state) => {
         if (authorId === userId) {
           return true
         } else {
-          messageService.add({ key: "k1", severity: 'warn', summary: 'Truy cap tu choi', detail: 'Ban khong co quyen truy cap bai viet nay' });
+          messageService.add({ key: "k1", severity: 'error', summary: 'Truy cap tu choi', detail: 'Ban khong co quyen truy cap bai viet nay' });
           router.navigate(["/home"])
           return false
         }
