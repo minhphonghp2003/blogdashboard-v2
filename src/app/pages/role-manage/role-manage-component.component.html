@@ -30,10 +30,10 @@
                                 [tableStyle]="{'min-width': '50rem'}">
                                 <ng-template pTemplate="caption">
                                     <p-button styleClass="bg-active p-3 text-black" (click)="onToggleClicked(role)"
-                                        label="Gan action"></p-button>
+                                        label=" Gán action"></p-button>
                                     <p-button [disabled]="selectedDeletedActions.length==0"
                                         styleClass="bg-red-500 ml-8 p-3 text-black" (click)="detachAction(role)"
-                                        label="Xoa action"></p-button>
+                                        label=" Xóa action"></p-button>
                                 </ng-template>
                                 <ng-template pTemplate="header">
             <tr>
@@ -54,10 +54,10 @@
 </p-table>
 
 
-<p-dialog styleClass="w-[40%] "  header="Action" [(visible)]="toggleAddDialog">
-    <button pButton pRipple type="button" label="Xac nhan" class="bg-active w-full p-4 text-black"
+<p-dialog styleClass="w-[40%] " header="Action" [(visible)]="toggleAddDialog">
+    <button pButton pRipple type="button" label=" Xác nhận" class="bg-active w-full p-4 text-black"
         (click)="assignActionToRole()"></button>
-    <p-listbox [options]="allApis"  [(ngModel)]="selectedActions" [checkbox]="true" [multiple]="true">
+    <p-listbox [options]="allApis" [(ngModel)]="selectedActions" [checkbox]="true" [multiple]="true">
         <ng-template let-api>
             <div>{{api}}</div>
         </ng-template>

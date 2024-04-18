@@ -23,7 +23,7 @@ export class LoginComponent {
   loginLog: LoginLog = {}
   constructor(private loginLogService: LogService, private deviceDetector: DeviceDetectorService, private messageService: MessageService, private storageService: StorageService, private authService: AuthService, private router: Router) { }
   async handleLogin() {
-    this.messageService.add({ key: "k1", severity: 'info', summary: 'Hold on', detail: 'Vui long cho mot lat' });
+    this.messageService.add({ key: "k1", severity: 'info', summary: 'Hold on', detail: 'Vui lòng đợi một lát' });
     this.authService.login(this.loginForm).subscribe(result => {
       let token = result.token
       if (token) {
@@ -46,9 +46,9 @@ export class LoginComponent {
     }, error => {
       if (error.status === 500 || error.status === 0) {
 
-        this.messageService.add({ key: "k1", severity: 'error', summary: 'Login that bai', detail: 'Server die roi 😢😢' });
+        this.messageService.add({ key: "k1", severity: 'error', summary: 'Login thất bại', detail: 'Server die rồi 😢😢' });
       } else {
-        this.messageService.add({ key: "k1", severity: 'error', summary: 'Login that bai', detail: 'Kiem tra lai tai khoan' });
+        this.messageService.add({ key: "k1", severity: 'error', summary: 'Login thất bại', detail: 'Kiểm tra lại tài khoản' });
       }
     })
 

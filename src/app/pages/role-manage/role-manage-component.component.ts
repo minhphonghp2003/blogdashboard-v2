@@ -45,7 +45,7 @@ export class RoleManageComponent implements OnInit {
       this.roleService.detachActionFromRole(role.id as number, action.id as number).subscribe(result => {
       }, err => {
         if (err.status == 200) {
-          this.messageService.add({ key: "k1", severity: 'success', summary: 'Success', detail: `Xoa action ${action.name} thanh cong` });
+          this.messageService.add({ key: "k1", severity: 'success', summary: 'Success', detail: `Xóa action ${action.name} thành công` });
           role.actions.splice(role.actions.indexOf(action), 1)
           // window.location.reload();
         }
@@ -62,10 +62,10 @@ export class RoleManageComponent implements OnInit {
             return
           }
           this.selectedRole.actions.push(result as IdName)
-          this.messageService.add({ key: "k1", severity: 'success', summary: 'Success', detail: `Gan action ${action} thanh cong` });
+          this.messageService.add({ key: "k1", severity: 'success', summary: 'Success', detail: `Gán action ${action} thành công` });
         },
         error => {
-          this.messageService.add({ key: "k1", severity: 'error', summary: 'Error', detail: `Co loi khi gan action ${action}` });
+          this.messageService.add({ key: "k1", severity: 'error', summary: 'Error', detail: `Có lỗi khi gán action ${action}` });
         }
       )
     });

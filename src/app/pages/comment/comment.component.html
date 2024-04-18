@@ -5,9 +5,9 @@
         <div class="flex align-items-center justify-between">
             <h5 class="m-0">Comments</h5>
             <div class="flex gap-4">
-                <button pButton pRipple label="Them" icon="pi pi-plus-circle" class="text-active"
+                <button pButton pRipple label="Thêm" icon="pi pi-plus-circle" class="text-active"
                     (click)="addComment()"></button>
-                <button pButton pRipple label="Xoa" icon="pi pi-trash" class="text-red-600"
+                <button pButton pRipple label=" Xóa " icon="pi pi-trash" class="text-red-600"
                     (click)="deleteMultipleComments()"
                     [disabled]="!selectedComment || !selectedComment.length"></button>
             </div>
@@ -18,8 +18,8 @@
             <th style="width: 4rem">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
             </th>
-            <th>Name</th>
-            <th>Text</th>
+            <th>Tên</th>
+            <th>Nội dung</th>
             <th></th>
         </tr>
     </ng-template>
@@ -49,6 +49,6 @@
     </span>
 
     <ng-template pTemplate="footer">
-        <button pButton pRipple label="Xac nhan" icon="pi pi-check" class="p-button-text" (click)="confirm()"></button>
+        <button pButton pRipple label="Xác nhận" icon="pi pi-check" class="p-button-text" (click)="confirm()"></button>
     </ng-template>
 </p-dialog>

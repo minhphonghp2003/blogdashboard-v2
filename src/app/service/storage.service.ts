@@ -72,6 +72,13 @@ export class StorageService {
       .download(path)
     return await data!.text()
   }
+  async deleteDraft(path: string) {
+    const { data, error } = await supabase
+      .storage
+      .from('post')
+      .remove([path])
+    return data
+  }
   saveFile({ content, fileName, contentType }: { content: any, fileName: string, contentType: string }) {
     var a = document.createElement('a');
     var file = new Blob([content], { type: contentType });
@@ -79,5 +86,5 @@ export class StorageService {
     a.download = fileName;
     a.click();
   }
- 
+
 }

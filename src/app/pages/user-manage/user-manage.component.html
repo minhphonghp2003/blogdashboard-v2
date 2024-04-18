@@ -1,12 +1,12 @@
 <app-box>
-    <p class="font-semibold">Dang ky nguoi dung</p>
+    <p class="font-semibold">Đăng kí người dùng</p>
     <div class="flex gap-4">
 
         <div class="flex flex-col gap-8 mt-8 *:h-[2rem] w-[50%] *:w-full">
 
             <span class="p-float-label">
                 <input id="float-input" type="text" [(ngModel)]="newUser.fullName" pInputText>
-                <label for="float-input">Fullname</label>
+                <label for="float-input">Tên</label>
             </span>
             <span class="p-float-label">
                 <input id="float-input" [(ngModel)]="newUser.username" type="text" pInputText>
@@ -26,12 +26,12 @@
             </span>
             <span class="p-float-label">
                 <input id="float-input" [(ngModel)]="newUser.phone" type="text" pInputText>
-                <label for="float-input">Phone</label>
+                <label for="float-input">SĐT</label>
             </span>
             <div class="flex gap-4 items-center justify-between">
                 <p-multiSelect [options]="allRoles" placeholder="Roles" [(ngModel)]="newUser.roles" optionLabel="name"
                     display="chip"></p-multiSelect>
-                <button pButton type="button" label="Tao user" class="text-white grow p-4 bg-blue-500 hover:bg-blue-600"
+                <button pButton type="button" label="Tạo user" class="text-white grow p-4 bg-blue-500 hover:bg-blue-600"
                     (click)="onCreateUser()"></button>
             </div>
 
@@ -46,19 +46,19 @@
     (onRowSelect)="selectRow()" [(selection)]="selectedUser" selectionMode="single">
     <ng-template pTemplate="caption">
         <div class="table-header flex justify-between">
-            Danh sach user
+            Danh sách user
             <span class="p-input-icon-left">
                 <!-- <i class="pi pi-search"></i> -->
                 <input pInputText type="text" placeholder="Search" (input)="filter($event.target,dt)" />
             </span>
         </div>
     </ng-template>
-    <ng-template  pTemplate="header">
+    <ng-template pTemplate="header">
         <tr>
 
             <th pSortableColumn="fullName" style="min-width: 14rem">
                 <div class="flex justify-content-between align-items-center">
-                    Full name
+                    Tên
                     <p-sortIcon field="fullName"></p-sortIcon>
                 </div>
             </th>
@@ -143,7 +143,7 @@
         </p-table>
         <button type="button"
             class=" w-full self-start p-4 bg-active rounded-2xl hover:bg-blue-600 text-white font-semibold justify-self-end"
-            (click)="onSetRole()">Cap nhat role</button>
+            (click)="onSetRole()">Cập nhật role</button>
     </div>
     <!-- <app-box>
 
@@ -157,7 +157,7 @@
     <app-box>
 
         <div class="card mt-10">
-            <h5 class="text-lg font-semibold mb-4">Nhat ky hoat dong</h5>
+            <h5 class="text-lg font-semibold mb-4">Nhật ký hoạt động</h5>
             <p-timeline [value]="userEvents">
                 <ng-template pTemplate="content" let-event>
                     <small class="p-text-secondary">{{event.createdAt | date}}</small>

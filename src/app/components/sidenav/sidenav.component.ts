@@ -28,10 +28,10 @@ export class SidenavComponent implements OnChanges {
   ]
   adminRoutes: Route[] = [
 
-    { name: "Quan li nguoi dung", icon: "manage_accounts", path: "userMng" },
-    { name: "Quan li phan quyen", icon: "admin_panel_settings", path: "roleMng" },
-    { name: "Quan li bai viet", icon: "edit_document", path: "postMng" },
-    { name: "Thong tin doc gia", icon: "local_library", path: "readerMng" },
+    { name: "Quản lí người dùng", icon: "manage_accounts", path: "userMng" },
+    { name: "Quản lí phân quyền", icon: "admin_panel_settings", path: "roleMng" },
+    { name: "Quản lí bài viết", icon: "edit_document", path: "postMng" },
+    { name: "Thông tin độc giả", icon: "local_library", path: "readerMng" },
     // { name: "Thong ke", icon: "signal_cellular_alt", path: "statistic" },
   ]
   activeClass = ["!text-active", "after:w-[4px]", "after:bg-active", "after:rounded", "after:ml-3"]
@@ -43,11 +43,11 @@ export class SidenavComponent implements OnChanges {
       this.userAvatar = user['currentValue'].userInformation.avatar
     }
     this.routes = [
-      { name: "Trang chu", icon: "home", path: "home" },
-      { name: "Viet bai", icon: "draw", path: "post" },
-      { name: "Thong tin bai viet", icon: "description", path: "postInfo" },
+      { name: "Trang chủ", icon: "home", path: "home" },
+      { name: "Viết bài", icon: "draw", path: "post" },
+      { name: "Thông tin bài viết", icon: "description", path: "postInfo" },
       // { name: "Profile", icon: "account_circle", path: "profile" },
-      { name: "Bai viet", icon: "work", path: ['work', { userId: this.user?.userInformation.id }] },
+      { name: "Bài viết của tôi", icon: "work", path: ['work', { userId: this.user?.userInformation.id }] },
     ]
   }
   checkEndScroll(id: string) {

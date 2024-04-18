@@ -24,7 +24,7 @@ import { CommonModule, DatePipe } from '@angular/common';
   styleUrl: './work-detail.component.css'
 })
 export class WorkDetailComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private postService: PostService, private storageService: StorageService, private messageService: MessageService,  private router: Router) {
+  constructor(private route: ActivatedRoute, private postService: PostService, private storageService: StorageService, private messageService: MessageService, private router: Router) {
   }
   dockItems!: MenuItem[];
   postId!: number
@@ -125,15 +125,15 @@ export class WorkDetailComponent implements OnInit {
   removePost() {
     let requiredText = this.postDetail.topic.name + "/" + this.postDetail.id
     if (requiredText !== this.confirmDeleteText) {
-      this.messageService.add({ key: "k1", severity: 'error', summary: 'Confirm text khong dung' });
+      this.messageService.add({ key: "k1", severity: 'error', summary: 'Confirm text không đúng' });
       return
     }
     this.postService.deletePost(this.postDetail.id).subscribe(result => {
-      this.messageService.add({ key: "k1", severity: 'success', summary: 'Xoa bai thanh cong' });
+      this.messageService.add({ key: "k1", severity: 'success', summary: 'Xóa bài thành công' });
       this.router.navigate(["/home"])
 
     }, err => {
-      this.messageService.add({ key: "k1", severity: 'success', summary: 'Xoa bai thanh cong' });
+      this.messageService.add({ key: "k1", severity: 'success', summary: 'Xóa bài thành công' });
       this.router.navigate(["/home"])
     })
   }

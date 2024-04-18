@@ -25,7 +25,7 @@ export class ReadersComponent implements OnInit {
       this.allReaders = result.content
       this.limit = result.size
     }, error => {
-      this.messageService.add({ key: "k1", severity: 'error', summary: 'Truy cap tu choi', detail: 'Ban khong co quyen truy cap trang nay' });
+      this.messageService.add({ key: "k1", severity: 'error', summary: 'Truy cập từ chối', detail: 'Bạn không có quyển truy cập trang này' });
       this.router.navigate(["/home"])
     })
   }

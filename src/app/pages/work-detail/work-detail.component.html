@@ -1,18 +1,18 @@
 <p-dialog header="Remove post" [(visible)]="displayRemove">
-    Neu ban chan chan xoa bai post nay thi hay nhap vao confirm text duoi day
+    Nếu chắc chắn xóa bài viết này thì nhập confirm text dưới đây
     <p class="text-center w-[50%] bg-gray-100 m-auto rounded-lg">
         {{postDetail.topic.name}}/{{postDetail.id}}
     </p>
-    <input placeholder="Nhap o day" class="block  h-[2rem] m-auto bg-slate-200 mt-2" type="text" pInputText
+    <input placeholder="Nhập ở đây" class="block  h-[2rem] m-auto bg-slate-200 mt-2" type="text" pInputText
         [(ngModel)]="confirmDeleteText">
-    <p-button styleClass="w-full bg-red-400 h-[2rem] mt-4" (click)="removePost()" label="Xac nhan"></p-button>
+    <p-button styleClass="w-full bg-red-400 h-[2rem] mt-4" (click)="removePost()" label="Xác nhận"></p-button>
 
 </p-dialog>
 <p-dialog header="Post Image" [(visible)]="displayGalleria">
     <img [src]="postDetail.imageLink" class="h-[70vh]" alt="">
 
 </p-dialog>
-<p-menubar styleClass="fixed w-[80%] z-20" >
+<p-menubar styleClass="fixed w-[80%] z-20">
     <ng-template pTemplate="start">
         <i class="pi pi-apple mr-2"></i>
         <i>{{postDetail.title | slice: 0 : 80 }}...</i>

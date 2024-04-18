@@ -1,7 +1,7 @@
 <div class="flex justify-between">
-    <p class="font-bold text-2xl">Mang xa hoi</p>
+    <p class="font-bold text-2xl">Mạng xã hội</p>
     <form (ngSubmit)="updateSocial()" *ngIf="isInput" action="">
-        <label for="" class="mr-4">Cap nhat link cho mxh</label>
+        <label for="" class="mr-4">Cập nhật link cho mxh</label>
         <input [(ngModel)]="linkValue" type="text" class="border-b border-blue-500" name="value" id="">
     </form>
 </div>
@@ -12,6 +12,6 @@
         <a [href]="social.link" class="text-blue-400">{{social.link}}</a>
     </div>
     <button (click)="handleClick(social.id,social.name)" [class]="social.id?'bg-red-500':''"
-        class="disabled:bg-icon bg-active w-[5rem] hover:bg-blue-600 duration-500 text-white rounded-lg p-2">{{social.id?"Xoa":"Cap
-        nhat"}}</button>
+        class="disabled:bg-icon bg-active w-[5rem] hover:bg-blue-600 duration-500 text-white rounded-lg p-2">{{social.id?"Xóa":"Cập
+        nhật"}}</button>
 </div>

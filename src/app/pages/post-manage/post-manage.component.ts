@@ -65,7 +65,7 @@ export class PostManageComponent implements OnInit {
       this.resetData()
 
     }, error => {
-      this.messageService.add({ key: "k1", severity: 'error', summary: 'Error', detail: 'Co loi xay ra' });
+      this.messageService.add({ key: "k1", severity: 'error', summary: 'Error', detail: 'Có lỗi xảy ra' });
       this.resetData()
     })
 
@@ -79,10 +79,10 @@ export class PostManageComponent implements OnInit {
 
     }
     this.postService.createComment(comment).subscribe(result => {
-      this.messageService.add({ key: "k1", severity: 'success', summary: 'Success', detail: 'Comment thanh cong' });
+      this.messageService.add({ key: "k1", severity: 'success', summary: 'Success', detail: 'Comment thành công' });
       this.resetData()
     }, error => {
-      this.messageService.add({ key: "k1", severity: 'error', summary: 'Error', detail: 'Co loi xay ra' });
+      this.messageService.add({ key: "k1", severity: 'error', summary: 'Error', detail: 'Có lỗi xảy ra' });
       this.resetData()
     })
   }

@@ -48,7 +48,7 @@ export class WorkComponent implements OnInit {
     if (!this.isEnd) {
       this.messageService.add({ key: "k1", severity: 'info', summary: 'Loading...', life: 2000, detail: '' });
     } else {
-      this.messageService.add({ key: "k1", severity: 'warn', summary: 'End of page', life: 2000, detail: 'Het roi dung luot nua' });
+      this.messageService.add({ key: "k1", severity: 'warn', summary: 'End of page', life: 2000, detail: 'Hết rồi đừng lướt nữa' });
 
     }
     this.page++

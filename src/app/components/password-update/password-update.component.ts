@@ -30,22 +30,22 @@ export class PasswordUpdateComponent {
   handleUpdate() {
     this.isLoading = true
 
-    this.messageService.add({ key: "k1", severity: 'info', summary: 'Hold on', detail: 'Voi long doi chut  lat' })
+    this.messageService.add({ key: "k1", severity: 'info', summary: 'Hold on', detail: 'Vui lòng đợi chút lát' })
     this.authService.updatePassword({ password: this.password }).subscribe(result => {
 
-      this.messageService.add({ key: "k1", severity: 'success', summary: 'Completed', detail: 'Ban da cap nhat password thanh cong' })
+      this.messageService.add({ key: "k1", severity: 'success', summary: 'Completed', detail: 'Bạn đã cập nhật password thành công' })
       this.isLoading = false
       this.password = ""
       this.confirm = ""
     }, error => {
       if (error.status == 200) {
 
-        this.messageService.add({ key: "k1", severity: 'success', summary: 'Completed', detail: 'Ban da cap nhat password thanh cong' })
+        this.messageService.add({ key: "k1", severity: 'success', summary: 'Completed', detail: 'Bạn đã cập nhật password thành công' })
         this.isLoading = false
         this.password = ""
         this.confirm = ""
       } else {
-        this.messageService.add({ key: "k1", severity: 'error', summary: 'Loi', detail: 'Co loi xay ra' })
+        this.messageService.add({ key: "k1", severity: 'error', summary: 'Error', detail: 'Có lỗi xảy ra' })
         this.isLoading = false
       }
 

@@ -33,18 +33,18 @@ export class AllRListsComponent {
   async onSubmit() {
     if (!this.addedReadingListImage) {
 
-      this.messageService.add({ key: "k1", severity: 'error', summary: 'Thieu anh', detail: 'Vui long them anh cho reading list' });
+      this.messageService.add({ key: "k1", severity: 'error', summary: 'Thiếu ảnh', detail: 'Vui lòng thêm ảnh cho reading list' });
       return
     } else if (!this.addedReadingListName) {
-      this.messageService.add({ key: "k1", severity: 'error', summary: 'Thieu ten', detail: 'Vui long them ten cho reading list' });
+      this.messageService.add({ key: "k1", severity: 'error', summary: 'Thiếu tên', detail: 'Vui lòng thêm tên cho reading list' });
       return
     } else if (!this.addedReadingListDesc) {
-      this.messageService.add({ key: "k1", severity: 'error', summary: 'Thieu ten', detail: 'Vui long them mo ta cho reading list' });
+      this.messageService.add({ key: "k1", severity: 'error', summary: 'Thiếu mô tả', detail: 'Vui lòng thêm mô tả cho reading list' });
       return
     }
     let image = await this.storageService.uploadImage(`readingList/${this.addedReadingListName}`, this.addedReadingListImage)
     if (!image) {
-      this.messageService.add({ key: "k1", severity: 'error', summary: 'Error', detail: 'Co loi xay ra, xin dung thu lai' });
+      this.messageService.add({ key: "k1", severity: 'error', summary: 'Error', detail: 'Có lỗi xảy ra, xin đừng thử lại' });
       return
     }
 
@@ -54,19 +54,19 @@ export class AllRListsComponent {
       name: this.addedReadingListName
     }
     this.postService.createRList(addedRList).subscribe(result => {
-      this.messageService.add({ key: "k1", severity: 'success', summary: 'Hoan tat', detail: 'Tao topic thanh cong' });
+      this.messageService.add({ key: "k1", severity: 'success', summary: 'Hoàn tất', detail: 'Tạo topic thành công' });
     }, error => {
 
-      this.messageService.add({ key: "k1", severity: 'error', summary: 'Error', detail: 'Co loi xay ra, xin dung thu lai' });
+      this.messageService.add({ key: "k1", severity: 'error', summary: 'Error', detail: 'Có lỗi xảy ra, xin đừng thử lại' });
     })
   }
   changeRListStatus(rlist: ReadingList) {
     let targetStatus = rlist.status == "ACTIVE" ? "PENDING" : "ACTIVE"
     this.postService.changeStatus("readingList/", rlist.id as number, targetStatus).subscribe(result => {
-      this.messageService.add({ key: "k1", severity: 'success', summary: 'Success', detail: 'Doi status thanh cong' });
+      this.messageService.add({ key: "k1", severity: 'success', summary: 'Success', detail: 'Đổi status thành công' });
       rlist.status = targetStatus
     }, error => {
-      this.messageService.add({ key: "k1", severity: 'error', summary: 'Error', detail: 'Co loi xay ra' });
+      this.messageService.add({ key: "k1", severity: 'error', summary: 'Error', detail: 'Có lỗi xảy ra' });
     })
 
   }

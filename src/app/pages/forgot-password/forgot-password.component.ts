@@ -37,13 +37,13 @@ export class ForgotPasswordComponent implements OnInit {
     buttonText: "Gui email dat lai mat khau",
   }
   handleSubmit() {
-    this.messageService.add({ key: "k1", severity: 'info', summary: 'Hold on', detail: 'Vui long doi mot lat' });
+    this.messageService.add({ key: "k1", severity: 'info', summary: 'Hold on', detail: 'Vui lòng đợi một lát' });
     if (this.inputField.name === "Email") {
       this.authService.getRecvPassToken(this.value).subscribe(result => {
-        this.messageService.add({ key: "k1", severity: 'success', summary: 'Email da duoc gui', detail: 'Vui long kiem tra email de reset password', life: 7000 });
+        this.messageService.add({ key: "k1", severity: 'success', summary: 'Email da duoc gui', detail: 'Vui lòng kiểm tra email để reset password', life: 7000 });
       }, error => {
 
-        this.messageService.add({ key: "k1", severity: 'error', summary: 'Loi', detail: 'Co loi xay ra vui long thu lai' });
+        this.messageService.add({ key: "k1", severity: 'error', summary: 'Error', detail: 'Có lỗi xảy ra vui lòng thử lại' });
       })
     } else if (this.inputField.name === "Password") {
       let password: PasswordReset = {
@@ -53,7 +53,7 @@ export class ForgotPasswordComponent implements OnInit {
       this.authService.updatePassword(password).subscribe(res => { }, err => {
         if (err.status == 200) {
 
-          this.messageService.add({ key: "k1", severity: 'success', summary: 'Thanh cong', detail: 'Cap nhat password thanh cong' });
+          this.messageService.add({ key: "k1", severity: 'success', summary: 'Thành công', detail: 'Cập nhật password thành công' });
           this.router.navigate(["/login"])
         }
       })
@@ -68,7 +68,7 @@ export class ForgotPasswordComponent implements OnInit {
     if (this.id) {
       this.inputField = {
         name: "Password",
-        buttonText: "Xac nhan mat khau moi",
+        buttonText: "Xác nhận mật khẩu mới",
       }
     }
   }

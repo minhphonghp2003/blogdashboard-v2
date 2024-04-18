@@ -2,12 +2,12 @@
     <div class="p-float-label w-full p-input-filled mb-6">
         <input id="float-input" class="p-3 p-inputtext-lg w-full text-2xl h-[3rem]" [(ngModel)]="title" type="text"
             pInputText>
-        <label class="" for="float-input">Tieu de</label>
+        <label class="" for="float-input">Tiêu đề</label>
     </div>
     <span class="p-float-label w-full p-input-filled mb-6">
         <input id="float-input" class="p-3 p-inputtext-lg w-full text-2xl h-[3rem]" [(ngModel)]="foreword" type="text"
             pInputText>
-        <label for="float-input">Loi noi dau</label>
+        <label for="float-input">Lời nói đầu</label>
     </span>
     <p-fileUpload [showUploadButton]="false" [showCancelButton]="false" (onRemove)="onRemoveImage($event)"
         chooseLabel="Image" (onSelect)="uploadImage($event)" accept=" image/*">
@@ -37,11 +37,27 @@
             <!-- </p-fileUpload> -->
             <div *ngIf="!postId" class="flex gap-4 self-center">
                 <span class="">Auto save to cloud</span>
+                <i *ngIf="isUploadDraft" class="pi pi-cloud-upload self-center text-blue-400 animate-bounce"></i>
                 <p-inputSwitch [(ngModel)]="isAutoSaved" (onChange)="handleAutoSave($event)"></p-inputSwitch>
 
             </div>
         </div>
     </app-box>
-    <div class="shadow-2xl p-14 rounded-lg bg-white" id="editor-js"></div>
+    <div class="shadow-2xl p-14 rounded-lg bg-white mt-10" id="editor-js"></div>
 </div>
 <input (change)="uploaded($event)" id="uploadInput" type="file" style="visibility:hidden" />
+<p-dialog header="Draft" [(visible)]="isDraftDialog">
+    <div>
+        <app-box *ngFor="let draft of allDrafts">
+            <div class=" flex justify-between gap-10 items-center hover:scale-105 duration-300 cursor-pointer">
+                <div (click)="uploadFromCloud(draft)">
+                    <p>{{draft.path}}</p>
+                    <p>{{draft.createdAt | date}}</p>
+                </div>
+                <i *ngIf="!isConfirmDelete || deletedDraft!=draft" class="pi pi-times cursor-pointer"
+                    (click)="isConfirmDelete=true;deletedDraft=draft"></i>
+                <i *ngIf="isConfirmDelete && deletedDraft==draft" class="pi pi-check" (click)="deleteDraft()"></i>
+            </div>
+        </app-box>
+    </div>
+</p-dialog>

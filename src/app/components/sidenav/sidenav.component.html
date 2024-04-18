@@ -22,7 +22,7 @@
         </div>
         <hr class=" relative -left-5 ">
         <div *ngFor="let route of adminRoutes; let i=index" class="">
-            <a [routerLink]="route.path" class="text-icon flex gap-1"  [routerLinkActive]="activeClass"
+            <a [routerLink]="route.path" class="text-icon flex gap-1" [routerLinkActive]="activeClass"
                 ariaCurrentWhenActive="page">
                 <mat-icon aria-hidden="false" aria-label="Example home icon" class=""
                     [fontIcon]="route.icon"></mat-icon>
@@ -42,7 +42,7 @@
 
 
         <a class=" mb-10 text-icon flex pr-5 items-center" routerLink="profile" routerLinkActive="text-blue-500 ">
-            <img [src]="userAvatar" class="rounded-lg w-[3rem] " />
+            <img [src]="userAvatar" class="rounded-lg w-[3rem] mr-2" />
             <div *ngIf="isHover">
                 <p class="  font-semibold text-sm">
                     {{user? user.userInformation.fullName:""}}

@@ -30,7 +30,7 @@ export class CommentComponent implements OnInit {
   authorReply?: string
   replyTo?: Comment
   ngOnInit(): void {
-    this.messageService.add({ key: "k1", severity: 'info', summary: 'Hold on', detail: 'Vui long cho mot lat' });
+    this.messageService.add({ key: "k1", severity: 'info', summary: 'Hold on', detail: 'Vui lòng đợi một lát' });
     this.activeRoute.parent?.params.subscribe(result => {
       this.postId = (result as any).id
       this.postService.getPostComment(this.postId).subscribe(result => {
@@ -66,7 +66,7 @@ export class CommentComponent implements OnInit {
     let newComment!: Comment
     if (this.replyTo) {
       newComment = {
-        fullName: "Author",
+        fullName: "Tác giả",
         postId: this.postId,
         text: this.authorReply!,
         userId: JSON.parse(this.userService.getUserIdFromToken()).jti,
@@ -74,7 +74,7 @@ export class CommentComponent implements OnInit {
       }
     } else {
       newComment = {
-        fullName: "Author",
+        fullName: "Tác giả",
         postId: this.postId,
         text: this.authorReply!,
         userId: JSON.parse(this.userService.getUserIdFromToken()).jti,

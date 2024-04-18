@@ -10,6 +10,7 @@ import { ReadingList } from '../model/ReadingList';
 import { Tag } from '../model/Tag';
 import { NewPost } from '../model/NewPost';
 import { Comment } from '../model/Comment';
+import { Draft } from '../model/Draft';
 let BASE_URL = environment.apiUrl
 @Injectable({
   providedIn: 'root'
@@ -84,5 +85,18 @@ export class PostService {
   changeStatus(targetApi: string, targetId: number, status: string) {
     let url = BASE_URL + `/${targetApi}status`
     return this.httpClient.put(url, { targetId, status })
+  }
+  createDraft(path: string) {
+    let url = BASE_URL + "/post/draft"
+    return this.httpClient.post(url, { path })
+  }
+  getAllDraft() {
+    let url = BASE_URL + "/post/draft"
+    return this.httpClient.get<Draft[]>(url)
+  }
+  deleteDraft(id: number) {
+
+    let url = BASE_URL + "/post/draft?id=" + id
+    return this.httpClient.delete(url)
   }
 }

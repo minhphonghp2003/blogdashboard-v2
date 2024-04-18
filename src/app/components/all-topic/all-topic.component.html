@@ -8,11 +8,11 @@
 
                 <span class="p-float-label">
                     <input [(ngModel)]="addedTopicName" id="float-input" type="text" pInputText>
-                    <label for="float-input">Them topic</label>
+                    <label for="float-input">Thêm topic</label>
                 </span>
                 <span *ngIf="addedTopicName" class="p-float-label">
                     <input [(ngModel)]="addedTopicDesc" id="float-input" type="text" pInputText>
-                    <label for="float-input">Mo ta</label>
+                    <label for="float-input">Mô tả</label>
                 </span>
                 <p-fileUpload mode="basic" (onSelect)="onUpload($event)" accept="image/*"
                     chooseLabel="Icon"></p-fileUpload>
@@ -25,10 +25,10 @@
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
-            <th>Name</th>
-            <th>Icon</th>
-            <th>Description</th>
-            <th>Status</th>
+            <th>Tên</th>
+            <th>Hình ảnh</th>
+            <th>Mô tả</th>
+            <th>Trạng thái</th>
             <th></th>
         </tr>
     </ng-template>
@@ -47,7 +47,7 @@
     </ng-template>
     <ng-template pTemplate="summary">
         <div class="flex align-items-center justify-content-between">
-            Tong cong co {{allTopics ? allTopics.length : 0 }} topics
+            Tổng cộng có {{allTopics ? allTopics.length : 0 }} topics
         </div>
     </ng-template>
 </p-table>

@@ -8,11 +8,11 @@
 
                 <span class="p-float-label">
                     <input [(ngModel)]="addedReadingListName" id="float-input" type="text" pInputText>
-                    <label for="float-input">Them reading list</label>
+                    <label for="float-input">Thêm reading list</label>
                 </span>
                 <span *ngIf="addedReadingListName" class="p-float-label">
                     <input [(ngModel)]="addedReadingListDesc" id="float-input" type="text" pInputText>
-                    <label for="float-input">Mo ta</label>
+                    <label for="float-input">Mô tả</label>
                 </span>
                 <p-fileUpload mode="basic" (onSelect)="onUpload($event)" accept="image/*"
                     chooseLabel="Image"></p-fileUpload>
@@ -25,10 +25,10 @@
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
-            <th>Name</th>
-            <th>Image</th>
-            <th>Description</th>
-            <th>Status</th>
+            <th>Tên</th>
+            <th>Hình ảnh</th>
+            <th>Mô tả</th>
+            <th>Trạng thái</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rlist>
@@ -44,7 +44,7 @@
     </ng-template>
     <ng-template pTemplate="summary">
         <div class="flex align-items-center justify-content-between">
-            Tong cong co {{allRLists ? allRLists.length : 0 }} reading lists
+            Tổng cộng có {{allRLists ? allRLists.length : 0 }} reading lists
         </div>
     </ng-template>
 </p-table>

@@ -26,25 +26,24 @@ export class AllTagsComponent {
   onSubmit() {
     if (!this.addedTagName) {
 
-      this.messageService.add({ key: "k1", severity: 'error', summary: 'Thieu ten', detail: 'Vui long them ten cho tag' });
+      this.messageService.add({ key: "k1", severity: 'error', summary: 'Thiếu tên', detail: 'Vui lòng thêm tên  cho tag' });
       return
     }
     this.postService.createTag(this.addedTagName).subscribe(result => {
 
-      this.messageService.add({ key: "k1", severity: 'success', summary: 'Thanh cong', detail: 'Them tag thanh cong' });
+      this.messageService.add({ key: "k1", severity: 'success', summary: 'Hoàn tất', detail: 'Thêm tag thành công' });
       this.addedTagName = ""
     }, error => {
-      this.messageService.add({ key: "k1", severity: 'error', summary: 'That bai', detail: 'Them tag that bai' });
-
+      this.messageService.add({ key: "k1", severity: 'error', summary: 'Error', detail: 'Có lỗi xảy ra, xin đừng thử lại' })
     })
   }
   changeTagStatus(tag: Tag) {
     let targetStatus = tag.status == "ACTIVE" ? "PENDING" : "ACTIVE"
     this.postService.changeStatus("tag/", tag.id as number, targetStatus).subscribe(result => {
-      this.messageService.add({ key: "k1", severity: 'success', summary: 'Success', detail: 'Doi status thanh cong' });
+      this.messageService.add({ key: "k1", severity: 'success', summary: 'Success', detail: 'Đổi status thành công' });
       tag.status = targetStatus
     }, error => {
-      this.messageService.add({ key: "k1", severity: 'error', summary: 'Error', detail: 'Co loi xay ra' });
+      this.messageService.add({ key: "k1", severity: 'error', summary: 'Error', detail: 'Có lỗi xảy ra' });
     })
   }
 }

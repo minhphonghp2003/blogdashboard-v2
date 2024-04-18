@@ -1,7 +1,8 @@
 <div class="">
     <div class="flex flex-col items-center">
         <button (click)="onChangeAvtClicked(avatarFile)">
-            <img [src]="userDetail.userInformation.avatar" class="w-[10rem] rounded-xl shadow-xl mb-5" alt="">
+            <img [src]="userDetail.userInformation.avatar" class="w-[10rem] rounded-xl shadow-xl mb-5"
+                alt="click to change avatar">
         </button>
         <div class="flex gap-4">
             <p-badge *ngFor="let role of userDetail.roles" [severity]="role.color" [value]="role.name"></p-badge>
