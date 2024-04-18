@@ -21,7 +21,7 @@ export class LogService {
   }
   getGeoLocationByIp() {
 
-    let url = "http://ip-api.com/json/"
+    let url = "https://ip-api.com/json/"
     return this.httpClient.get(url)
   }
   updateLoginLog(loginLog: LoginLog) {
