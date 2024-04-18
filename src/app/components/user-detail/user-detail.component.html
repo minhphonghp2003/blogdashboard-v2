@@ -21,7 +21,7 @@
         </p>
 
         <p>
-            Ten
+            Tên
             <input type="text" [disabled]="!isEditable" [class]="isEditable?'border border-b-active':''"
                 [(ngModel)]="newUserDetail.fullName" />
         </p>
@@ -41,10 +41,10 @@
     <div class="w-[20vw] m-auto flex gap-7">
 
         <button [disabled]="isLoading" (click)="toggleEdit()"
-            class="w-full mt-7 bg-active hover:bg-blue-600 duration-500 text-white rounded-lg p-2">{{isEditable?"Xac
-            nhan":"Cap nhat"}}</button>
+            class="w-full mt-7 bg-active hover:bg-blue-600 duration-500 text-white rounded-lg p-2">{{isEditable?" Xác
+            nhận":" Cập nhật"}}</button>
         <button (click)="toggleCancle()" *ngIf="isEditable"
-            class="w-full mt-7 bg-red-300 hover:bg-red-400 duration-500 text-white rounded-lg p-2">Huy</button>
+            class="w-full mt-7 bg-red-300 hover:bg-red-400 duration-500 text-white rounded-lg p-2"> Hủy</button>
 
     </div>
 

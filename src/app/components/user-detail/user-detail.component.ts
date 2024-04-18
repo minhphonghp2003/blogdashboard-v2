@@ -41,7 +41,7 @@ export class UserDetailComponent implements OnChanges {
       this.isLoading = true
       this.userService.updateUserDetail(this.newUserDetail.fullName, this.newUserDetail.phone, this.newUserDetail.bio).subscribe(result => {
         this.isLoading = false
-        this.messageService.add({ key: "k1", severity: 'success', summary: 'Success', detail: 'Thong tin profile cap nhat thanh cong' })
+        this.messageService.add({ key: "k1", severity: 'success', summary: 'Success', detail: ' Thông tin profile cập nhật thành công' })
         this.isEditable = !this.isEditable
       }, error => {
         this.isLoading = false
@@ -58,7 +58,7 @@ export class UserDetailComponent implements OnChanges {
 
   async onAvatarChanged(event: any) {
     let result = await this.storageService.uploadImage(`avatar/${this.userDetail.username}`, event.target.files[0])
-    this.messageService.add({ key: "k1", severity: 'success', summary: 'Success', detail: 'Thay anh dai dien thanh cong' })
+    this.messageService.add({ key: "k1", severity: 'success', summary: 'Success', detail: ' Thay ảnh đại diện thành công' })
 
 
   }
