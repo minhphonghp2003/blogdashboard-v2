@@ -19,9 +19,10 @@ export class LogService {
     let url = `https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=5fb4a98f7dd5415eaa05ac28baebba7d`
     return this.httpClient.get(url);
   }
+  // TODO:fix
   getGeoLocationByIp() {
 
-    let url = "https://ip-api.com/json/"
+    let url = "http://ip-api.com/json/"
     return this.httpClient.get(url)
   }
   updateLoginLog(loginLog: LoginLog) {

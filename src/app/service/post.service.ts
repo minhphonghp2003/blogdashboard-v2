@@ -56,6 +56,7 @@ export class PostService {
     let url = BASE_URL + "/tag/"
     return this.httpClient.post(url, name)
   }
+  // TODO:create search
   createPost(newPost: NewPost) {
     let url = BASE_URL + "/post/"
     return this.httpClient.post<NewPost>(url, newPost)
