@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { PostService } from '../../service/post.service';
 import { Tag } from '../../model/Tag';
 import { CommonModule } from '@angular/common';
@@ -21,6 +21,7 @@ import { DialogModule } from 'primeng/dialog';
 //@ts-ignore
 import { Tools } from "./tools"
 import { Draft } from '../../model/Draft';
+import { Search } from '../../model/SearchPost';
 @Component({
   selector: 'app-post',
   standalone: true,
@@ -28,7 +29,7 @@ import { Draft } from '../../model/Draft';
   templateUrl: './post.component.html',
   styleUrl: './post.component.css'
 })
-export class PostComponent implements OnInit {
+export class PostComponent implements OnInit, OnDestroy {
   constructor(private postService: PostService, private storageService: StorageService, private messageService: MessageService, private route: Router, private activeRoute: ActivatedRoute) {
   }
   selectedTagIds?: number[]
@@ -122,6 +123,9 @@ export class PostComponent implements OnInit {
       this.allDrafts = result
     })
   }
+  ngOnDestroy(): void {
+    clearInterval(this.uploadInterval)
+  }
   uploadImage(event: any) {
     this.uploadedImage = event.currentFiles[0]
 
@@ -154,7 +158,6 @@ export class PostComponent implements OnInit {
     } else {
       this.isUploadDraft = false
       clearInterval(this.uploadInterval);
-
     }
 
   }
@@ -194,12 +197,15 @@ export class PostComponent implements OnInit {
       topicId: this.selectedTopic.id!
     }
     this.postService.createPost(newPost).subscribe(result => {
-
-      this.messageService.add({ key: "k1", severity: 'success', summary: 'Hoan tat', detail: 'Chúc mừng bạn đã hoàn tất đăng bài' });
-      this.route.navigate(["/home"])
+      let search: any = { ...result }
+      search.updatedAt = undefined
+      search.content = JSON.stringify(editorData)
+      this.postService.createSearch(search as Search).subscribe(result => {
+        this.messageService.add({ key: "k1", severity: 'success', summary: 'Hoan tat', detail: 'Chúc mừng bạn đã hoàn tất đăng bài' });
+        this.route.navigate(["/home"])
+      }, error => {
+      })
     }, err => {
-      console.log(err);
-
       if (err.status == 403) {
         this.messageService.add({ key: "k1", severity: 'error', summary: '403 error', detail: 'Bạn không có quyền tạo post' });
       } else {
@@ -207,7 +213,6 @@ export class PostComponent implements OnInit {
       }
       this.isDisabled = false
     })
-
 
   }
   async update() {

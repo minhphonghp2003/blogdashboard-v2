@@ -29,9 +29,9 @@ export class LoginComponent {
       if (token) {
         this.storageService.addCookie({ name: "Auth", value: token })
         this.loginLog = { ...this.deviceDetector.getDeviceInfo(), browserName: this.deviceDetector.getDeviceInfo().browser, device: this.deviceDetector.deviceType }
-        this.loginLogService.getGeoLocationByIp().subscribe(result => {
-          let lat = (result as any).lat
-          let lon = (result as any).lon
+        this.loginLogService.getIpInfo().subscribe(result => {
+          let lat = (result as any).location.latitude
+          let lon = (result as any).location.longitude
           this.loginLogService.getGeoLocation(lat, lon).subscribe(result => {
             this.loginLog.location = (result as any).features[0].properties.formatted
             this.loginLogService.updateLoginLog(this.loginLog).subscribe(data => {
@@ -40,7 +40,6 @@ export class LoginComponent {
               })
             })
           })
-
         })
       }
     }, error => {

@@ -11,6 +11,7 @@ import { Tag } from '../model/Tag';
 import { NewPost } from '../model/NewPost';
 import { Comment } from '../model/Comment';
 import { Draft } from '../model/Draft';
+import { Search } from '../model/SearchPost';
 let BASE_URL = environment.apiUrl
 @Injectable({
   providedIn: 'root'
@@ -56,10 +57,14 @@ export class PostService {
     let url = BASE_URL + "/tag/"
     return this.httpClient.post(url, name)
   }
-  // TODO:create search
   createPost(newPost: NewPost) {
     let url = BASE_URL + "/post/"
     return this.httpClient.post<NewPost>(url, newPost)
+  }
+  createSearch(search: Search) {
+
+    let url = BASE_URL + "/search/post"
+    return this.httpClient.post(url, search)
   }
   deletePost(postId: number) {
 
