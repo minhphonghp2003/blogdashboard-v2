@@ -57,10 +57,11 @@ export class HomeComponent implements OnInit {
         this.totalPost = result.totalElements
         result.content.map(p => {
           this.totalView += p.postStatistic.viewCount
-          this.totalView += p.likeReader.length
+          this.totalLike += p.likeReader.length
           this.totalShare += p.postStatistic.shareCount
         })
-        this.totalPoint += this.totalPost + this.totalView + this.totalLike * 2 + this.totalShare * 3 
+
+        this.totalPoint += this.totalPost + this.totalView + this.totalLike * 2 + this.totalShare * 3
         this.totalPoint = this.transform(this.totalPoint)
         this.totalLike = this.transform(this.totalLike)
         this.totalView = this.transform(this.totalView)
