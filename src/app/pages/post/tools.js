@@ -56,6 +56,7 @@ export let Tools = {
   },
   embed: {
     class: Embed,
+    
     config: {
       services: {
         youtube: true,
