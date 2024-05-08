@@ -4,7 +4,7 @@ export interface NewPost {
     foreword: string,
     imageLink?: string,
     postLink?: string,
-    readingListId?: number | string,
+    readingListId?: number | string|null,
     topicId: number | string,
     tagIds: number[]
 }

@@ -153,6 +153,7 @@ export class PostComponent implements OnInit, OnDestroy {
       this.storageService.uploadPost(this.draftPath as string, JSON.stringify(editorData))
       this.uploadInterval = setInterval(async () => {
         let editorData = await this.editor.save()
+
         this.storageService.uploadPost(this.draftPath as string, JSON.stringify(editorData))
       }, 1000 * 60)
     } else {
@@ -181,7 +182,7 @@ export class PostComponent implements OnInit, OnDestroy {
     data = await this.storageService.uploadImage(postPath, this.uploadedImage)
     if (!data) {
 
-      this.messageService.add({ key: "k1", severity: 'error', summary: 'Loi', detail: 'Có lỗi xảy ra' });
+      this.messageService.add({ key: "k1", severity: 'error', summary: 'Error', detail: 'Có lỗi xảy ra' });
       this.isDisabled = false
       return
     }
