@@ -63,10 +63,6 @@ export class StorageService {
       .upload(path, file, {
         upsert: true
       })
-    console.log(error);
-    console.log(data);
-
-
     return data
 
   }
